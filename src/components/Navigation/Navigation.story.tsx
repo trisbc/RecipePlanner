@@ -5,7 +5,7 @@ export default {
   title: 'Nav',
 };
 
-export const Usage = () => (
+export const Nav = () => (
   <BrowserRouter>
     <Navigation />
   </BrowserRouter>

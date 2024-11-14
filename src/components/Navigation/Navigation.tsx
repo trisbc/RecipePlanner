@@ -43,7 +43,7 @@ const Navigation: FC = () => {
                 } />
                 <NavLink to="Meals" content="Meals" />
                 <NavLink to="Calendar" content="Calendar" />
-                <NavLink to="Inventory" content="Inventory" />
+                <NavLink to="Pantry" content="Pantry" />
                 <Box className={classes.burger}>
                     <Settings/>
                 </Box>

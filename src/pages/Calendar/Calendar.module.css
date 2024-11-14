@@ -1,0 +1,7 @@
+.spacer {
+    display: flex;
+    align-items: top;
+    flex-wrap: nowrap;
+    height: fit-content;
+    column-gap: 25px;
+}

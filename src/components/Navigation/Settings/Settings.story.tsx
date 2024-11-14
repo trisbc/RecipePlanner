@@ -2,10 +2,10 @@ import { BrowserRouter } from 'react-router-dom';
 import Componenet from './Settings';
 
 export default {
-  title: 'Nav',
+  title: 'Nav/Settings',
 };
 
-export const Usage = () => (
+export const Settings = () => (
   <BrowserRouter>
     <Componenet />
   </BrowserRouter>

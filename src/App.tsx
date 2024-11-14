@@ -1,22 +1,25 @@
 import '@mantine/core/styles.css';
-import { MantineProvider } from '@mantine/core';
+import { Box, MantineProvider } from '@mantine/core';
 import { theme } from './theme';
 import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
 import { Navigation } from './components/Navigation';
-import { ColorSchemeToggle } from './components/ColorSchemeToggle/ColorSchemeToggle';
 import Footer from './components/Footer/Footer';
+import { Calendar } from './pages/Calendar';
+import classes from "./App.module.css"
 
 
-
-const ApplicationLayout = () => (
-  <>
-    <Navigation />
-    <main>
-      <Outlet />
-    </main>
-   <Footer />
-  </>
-)
+const ApplicationLayout = () => {
+  console.log(classes)
+  return(
+    <div className={classes["page-container"]} >
+      <Navigation />
+      <div className={classes["content-wrap"]} >
+        <Outlet />
+      </div>
+    <Footer />
+    </div>
+  )
+}
 
 const routes = createBrowserRouter([
   {
@@ -25,14 +28,88 @@ const routes = createBrowserRouter([
     children: [
       {
         path: 'Meals/',
-        element: <></>
+        element: <>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        test <br/>
+        
+        </>
       },
       {
         path: 'Calendar/',
-        element: <></>
+        element: <Calendar />
       },
       {
-        path: 'Inventory/',
+        path: 'Pantry/',
         element: <></>
       }
     ]

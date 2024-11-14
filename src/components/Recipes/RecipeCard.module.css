@@ -1,0 +1,38 @@
+.card-wrapper {
+    letter-spacing: rem(-2px);
+    background-color: var(--mantine-color-white-2);
+    width: 100%;
+    border-radius: 5px;
+    border: 2px solid var(--mantine-color-white-7); 
+    
+    color: var(--mantine-color-black);
+    min-height: min-content;
+    max-height: max-content;
+    display: flex;
+    flex-direction: row-reverse;
+    letter-spacing: normal;
+}
+
+.button-stack {
+    display: flex;
+    flex-direction: column;
+    height: fit-content
+}
+
+.content {
+    padding: 5px;
+    width: 100%;
+}
+
+.icon-button {
+    background-color: inherit;
+    border: none;
+    cursor: pointer;
+    :hover {
+        border: 2px solid transparent;
+    }
+}
+
+.drag-handle {
+    cursor: move
+}

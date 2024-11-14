@@ -5,9 +5,9 @@ import classes from "./Footer.module.css"
 
 const Footer: FC = () => {
     return (
-            <Box className={classes.wrapper} >
-                Footer
-            </Box>
+        <Box className={classes.wrapper} >
+            Footer
+        </Box>
     )
 }
 
