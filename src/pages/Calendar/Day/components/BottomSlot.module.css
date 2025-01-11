@@ -1,0 +1,13 @@
+.bottomBox {
+    margin-top: 10px;
+    min-height: 85px;
+}
+
+.over {
+    border: dotted 2px var(--mantine-color-white-8);
+    border-radius: 5px;
+}
+
+.inbetween {
+    height: 1px;
+}

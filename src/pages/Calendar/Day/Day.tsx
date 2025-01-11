@@ -1,45 +1,40 @@
-import {useDroppable} from '@dnd-kit/core';
-import { FC, ReactNode } from 'react';
+import { FC } from 'react';
 import { Title } from '@mantine/core';
-import { FiChevronDown, FiChevronUp } from 'react-icons/fi';
+import { BottomSlot, InbetweenSlot, } from './components';
+import { RecipeType } from '@/types/recipeType';
+import { DayState, days, useCalendarStore } from '@/store/useCalendarStore';
+import { RecipeCard } from '@/components/Recipes/RecipeCard';
 import classes from "./Day.module.css"
+
 interface DayProps {
-    id: string;
-    day?: string;
-    children?: ReactNode
+  day: days;
+  recipeCards?: RecipeType[]
 }
 
-const InbetweenSlot = () => {
-    const { arrow, up, down, "inbetween-line": inbetweenLine, inbetween, 
-    "inbetween-arrow-wrap": inbetweenArrowWrap
-     } = classes
-    return (
-        <div className={inbetween}>
-            <div className={inbetweenArrowWrap} >
-                <i className={`${arrow} ${down}`}></i>
-            </div>
-            <div className={inbetweenLine}/>
-            <div className={inbetweenArrowWrap} >
-                <i className={`${arrow} ${up}`}></i>
-            </div>
-        </div>
-    )
-}
-
-export const Day: FC<DayProps> = ({ id, day, children }) => {
-  const { setNodeRef, isOver } = useDroppable({ id });
-  const { wrapper, spacer } = classes
-  const style = isOver ? {
-    outline: "2px solid var(--mantine-color-white-2)",
-    "outline-offset": "-4px"
-  } : undefined;
+export const Day: FC<DayProps> = ({ day }) => {
+  const { wrapper, spacer, "recipes-wrapper": recipeWrapper, "spacer-bottom": spacerBottom, title } = classes
+  const dayState = useCalendarStore().calendarStore[day] as DayState
+  const recipes = dayState.recipes
+  if (day == "monday") {
+    console.log(recipes);
+  }
   return (
-    <div style={style} ref={setNodeRef} className={wrapper} >
-      
-      <Title order={2}>{day ?? id}</Title>
-      <div className={spacer}></div>
-      <InbetweenSlot />
-      {children}
+    <div className={wrapper} >
+      <Title order={2} className={title}>{day}</Title>
+      <div className={spacer} />
+      <div className={recipeWrapper}>
+        {recipes.map((recipeId, index) => (
+          recipeId 
+          ? 
+          (<>
+            <InbetweenSlot day={day as string} index={index} />
+            <RecipeCard id={recipeId} location={day} index={index} />
+          </>) 
+          : null
+        ))}
+        <BottomSlot day={day as string} index={recipes.length} />
+      </div>
+      <div className={spacerBottom} />
     </div>
   );
 }
