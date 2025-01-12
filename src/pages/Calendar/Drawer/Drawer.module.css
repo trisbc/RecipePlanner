@@ -1,0 +1,66 @@
+.drawerWrapper {
+	position: absolute;
+	bottom: 50px;
+	width: 100%;
+
+	background-color: light-dark(
+		var(--mantine-color-dark-7),
+		var(--mantine-color-white-7)
+	);
+	width: 100%;
+	border-radius: 15px 15px 0 0;
+	/* overflow-y: hidden; */
+	padding: 5px 15px 0 15px;
+}
+
+.drawerHandle {
+	left: 0;
+	right: 0;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 15px 15px 0 0;
+	padding-bottom: 20px;
+	width: 10%;
+	position: absolute;
+	top: -20px;
+	border: none;
+	height: 20px;
+
+	&:hover {
+		background-color: light-dark(
+			var(--mantine-color-dark-4),
+			var(--mantine-color-dark-2)
+		);
+	}
+
+	background-color: light-dark(
+		var(--mantine-color-dark-7),
+		var(--mantine-color-white-7)
+	);
+
+	svg {
+		stroke: light-dark(
+			var(--mantine-color-white-7),
+			var(--mantine-color-dark-7)
+		);
+	}
+}
+
+.recipeContainer {
+	box-shadow: inset 2px 3px 3px 4px rgb(0 0 0 / 20%);
+	padding: 15px;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	column-gap: 41px;
+	row-gap: 5px;
+	margin: 10px auto 0;
+	max-height: 20vh;
+	overflow-y: scroll;
+	z-index: 1;
+	background-color: transparent;
+	/* > div {
+		position: relative;
+		z-index: -1;
+	} */
+}

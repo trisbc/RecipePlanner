@@ -3,19 +3,19 @@ import { DndContext, DndContextProps, DragEndEvent } from "@dnd-kit/core";
 import { Box, Title } from "@mantine/core";
 
 interface PageLayoutProps extends DndContextProps {
-    title: string
-    children: ReactNode
+	title: string;
+	children: ReactNode;
 }
 
-export const PageLayout: FC<PageLayoutProps> = ({ title, children, ...props }) => {
-    return (
-        <DndContext {...props} >
-            <Title>
-                {title}
-            </Title>
-            <Box>
-                {children}
-            </Box>
-        </DndContext>
-    )
-}
+export const PageLayout: FC<PageLayoutProps> = ({
+	title,
+	children,
+	...props
+}) => {
+	return (
+		<DndContext {...props}>
+			<Title ml="lg">{title}</Title>
+			<Box>{children}</Box>
+		</DndContext>
+	);
+};

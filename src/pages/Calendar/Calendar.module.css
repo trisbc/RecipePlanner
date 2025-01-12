@@ -1,8 +1,33 @@
 .spacer {
-    display: flex;
-    align-items: top;
-    flex-wrap: nowrap;
-    height: fit-content;
-    column-gap: 25px;
-    
+	display: flex;
+	align-items: top;
+	flex-wrap: nowrap;
+	height: fit-content;
+	column-gap: 5px;
+	margin: 5px;
+	padding: 5px;
+	letter-spacing: rem(-2px);
+	background-color: var(--mantine-color-green-4);
+	border-radius: 15px;
+	box-shadow: -2px 3px 3px 4px rgb(0 0 0 / 20%);
+	> div:first-child {
+		border-radius: 10px 0px 0px 10px;
+	}
+
+	> div:last-child {
+		border-radius: 0px 10px 10px 0px;
+	}
+}
+
+.daysControl {
+	margin: -30px 24px 10px auto;
+	width: 250px;
+	background-color: light-dark(
+		var(--mantine-color-white-1),
+		var(--mantine-color-dark-6)
+	);
+	box-shadow: 0px 0px 3px 4px rgb(0 0 0 / 20%);
+	padding: 5px;
+	padding-left: 20px;
+	border-radius: 10px;
 }

@@ -1,54 +1,57 @@
 .wrapper {
-    letter-spacing: rem(-2px);
-    background-color: var(--mantine-color-green-4);
-    width: 100%;
-    border-radius: 15px;
-    overflow-y: hidden;
-    padding: 15px 5px;
-    height: fit-content;
+	letter-spacing: rem(-2px);
+	background-color: var(--mantine-color-dark-7);
+	width: 100%;
+	/* border-radius: 15px; */
+	overflow-y: hidden;
+	padding: 15px 5px;
+	height: fit-content;
+	color: var(--mantine-color-white-8);
 }
 
 .recipes-wrapper {
-    /* background-color: var(--mantine-color-green-9); */
-    height: 42vh;
-    overflow-y: scroll;
-    padding-left: 10px;
-    padding-right: 8px;
-    &::-webkit-scrollbar-thumb:hover {
-        cursor: ns-resize;
-    }
-    &::-webkit-scrollbar-track {
-        background-color: transparent;
-    }
-    &::-webkit-scrollbar {
-        width: 4px;
-        background-color: transparent;
-    }
-    &::-webkit-scrollbar-thumb {
-        background-color: red;
-        border: 1px solid transparent;
-        border-radius: 8px;
-        background-clip: padding-box;  
-        background-color: #c1c1c1;
-    }
+	/* background-color: var(--mantine-color-green-9); */
+	height: 42vh;
+	overflow-y: scroll;
+	padding-left: 10px;
+	padding-right: 8px;
+	&::-webkit-scrollbar-thumb:hover {
+		cursor: ns-resize;
+	}
+	&::-webkit-scrollbar-track {
+		background-color: transparent;
+	}
+	&::-webkit-scrollbar {
+		width: 4px;
+		background-color: transparent;
+	}
+	&::-webkit-scrollbar-thumb {
+		background-color: red;
+		border: 1px solid transparent;
+		border-radius: 8px;
+		background-clip: padding-box;
+		background-color: #c1c1c1;
+	}
 }
 
 .spacer {
-    background-color: var(--mantine-color-white-8);
-    height: 3px;
-    width: calc(100% - 10px);
-    margin: 5px 5px 0px 5px;
-    border-radius: 5px;
+	background-color: var(--mantine-color-white-8);
+	height: 3px;
+	width: calc(100% - 10px);
+	margin: 5px 5px 0px 5px;
+	border-radius: 5px;
+	margin-left: 5px;
+	margin-right: 5px;
 }
 
 .title {
-    margin: 0px 10px;
+	margin: 0px 10px;
 }
 
 .spacer-bottom {
-    background-color: var(--mantine-color-white-8);
-    height: 3px;
-    width: calc(100% - 10px);
-    margin: 0px 5px;
-    border-radius: 5px;
+	background-color: var(--mantine-color-white-8);
+	height: 3px;
+	width: calc(100% - 10px);
+	margin: 0px 5px;
+	border-radius: 5px;
 }
