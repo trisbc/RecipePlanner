@@ -1,6 +1,14 @@
 import { DragEndEvent, DragOverlay, DragStartEvent } from "@dnd-kit/core";
 import { Day } from "./Day";
-import { Box, SegmentedControl, Text } from "@mantine/core";
+import {
+	Box,
+	Button,
+	NativeSelect,
+	SegmentedControl,
+	Select,
+	Text,
+	useMantineTheme,
+} from "@mantine/core";
 import { PageLayout } from "../../layouts/PageLayout";
 import { RecipeCardNoDragging } from "@/components/Recipes/RecipeCard";
 import { useState } from "react";
@@ -8,39 +16,69 @@ import { days, useCalendarStore } from "@/store/useCalendarStore";
 import classes from "./Calendar.module.css";
 import { Drawer } from "./Drawer";
 import { IDType, parseID } from "./util";
+import { Carousel } from "./Carousel";
+import { dayType, numDaysType } from "@/types";
+import SettingsPopover from "@/components/SettingsPopover/SettingsPopover";
+import { useMediaQuery } from "@mantine/hooks";
+import { getOrderedDayList } from "@/constants";
 
 export const Calendar = () => {
-	const { spacer, daysControl } = classes;
+	const { daysControl, select } = classes;
 	const [activeItem, setActiveItem] = useState<IDType | undefined>();
-	const [numDays, setNumDays] = useState<"seven-day" | "three-day">(
-		"seven-day",
-	);
+	const [numDays, setNumDays] = useState<numDaysType>("seven-day");
 	const { moveRecipe, nullRecipe } = useCalendarStore();
+	const [startDay, setStartDay] = useState<dayType>("monday");
+	const [disableScroll, setDisableScroll] = useState(false);
+	const { breakpoints } = useMantineTheme();
+	console.log(breakpoints.sm);
+	const match = useMediaQuery(`(max-width: ${breakpoints.sm})`);
+	console.log(match);
 	return (
 		<PageLayout
 			title="Calendar"
 			onDragEnd={handleDragEnd}
 			onDragStart={handleDragStart} /*collisionDetection={closestCenter}*/
+			autoScroll={false}
 		>
 			<Box className={daysControl}>
-				<Box>
-					<Text component="label" lh="32px" fz="14px" fw="500">
-						Number of days
-					</Text>
-				</Box>
+				<SettingsPopover title="Calendar settings">
+					<Box>
+						<Text component="label" lh="32px" fz="14px" fw="500">
+							Number of days
+						</Text>
+					</Box>
 
-				<SegmentedControl
-					w="200px"
-					value={numDays}
-					onChange={(value) =>
-						setNumDays(value as "seven-day" | "three-day")
-					}
-					data={[
-						{ label: "Three", value: "three-day" },
-						{ label: "Seven", value: "seven-day" },
-					]}
-				/>
+					<SegmentedControl
+						w="200px"
+						value={numDays}
+						onChange={(value) => setNumDays(value as numDaysType)}
+						data={[
+							{ label: "Three", value: "three-day" },
+							{ label: "Seven", value: "seven-day" },
+						]}
+					/>
+					<NativeSelect
+						className={select}
+						value={startDay}
+						label="Start Day"
+						onChange={(e) =>
+							setStartDay(e.currentTarget.value as dayType)
+						}
+						data={getOrderedDayList(startDay).map((day) => ({
+							label: day,
+							value: day,
+						}))}
+					/>
+				</SettingsPopover>
 			</Box>
+
+			<Carousel {...{ numDays, startDay }} />
+
+			<Drawer
+				numDays={numDays}
+				activeItem={activeItem}
+				disableScroll={disableScroll}
+			/>
 			<DragOverlay style={{ width: "100vw" }} dropAnimation={null}>
 				{activeItem && (
 					<RecipeCardNoDragging
@@ -51,21 +89,6 @@ export const Calendar = () => {
 					/>
 				)}
 			</DragOverlay>
-
-			<Box className={spacer}>
-				<Day day="monday" />
-				<Day day="tuesday" />
-				<Day day="wednesday" />
-				{numDays === "seven-day" && (
-					<>
-						<Day day="thursday" />
-						<Day day="friday" />
-						<Day day="saturday" />
-						<Day day="sunday" />
-					</>
-				)}
-			</Box>
-			<Drawer numDays={numDays} activeItem={activeItem} />
 		</PageLayout>
 	);
 	function handleDragEnd(event: DragEndEvent) {
@@ -83,6 +106,7 @@ export const Calendar = () => {
 				moveFrom,
 			);
 		}
+		setDisableScroll(false);
 	}
 	function handleDragStart(event: DragStartEvent) {
 		const from = parseID(event.active.id as string);
@@ -91,5 +115,6 @@ export const Calendar = () => {
 			nullRecipe(from.locationId, from.index);
 		}
 		setActiveItem(parseID(event.active.id as string));
+		setDisableScroll(true);
 	}
 };

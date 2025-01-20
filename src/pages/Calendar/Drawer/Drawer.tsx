@@ -8,9 +8,10 @@ import { IDType } from "../util";
 export const Drawer: FC<{
 	numDays: "three-day" | "seven-day";
 	activeItem?: IDType;
-}> = ({ numDays, activeItem }) => {
+	disableScroll?: boolean;
+}> = ({ numDays, activeItem, disableScroll }) => {
 	const drawerItems = useCalendarStore().calendarStore.drawer;
-	const { drawerWrapper, drawerHandle, recipeContainer } = classes;
+	const { drawerWrapper, drawerHandle, recipeContainer, noScroll } = classes;
 	const [open, setOpen] = useState(false);
 	return (
 		<div className={drawerWrapper}>
@@ -22,7 +23,9 @@ export const Drawer: FC<{
 				{open ? <FiChevronsDown /> : <FiChevronsUp />}
 			</button>
 			{open && (
-				<div className={recipeContainer}>
+				<div
+					className={`${recipeContainer}${disableScroll ? ` ${noScroll}` : ""}`}
+				>
 					{drawerItems.map((id, index) => (
 						<RecipeCard
 							id={id}

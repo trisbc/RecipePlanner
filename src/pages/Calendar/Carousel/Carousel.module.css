@@ -1,0 +1,71 @@
+.carouselSpacer {
+	display: flex;
+	align-items: top;
+	flex-wrap: nowrap;
+	height: fit-content;
+	column-gap: 5px;
+	margin: 5px;
+	padding: 5px;
+	letter-spacing: rem(-2px);
+	background-color: var(--mantine-color-green-4);
+	border-radius: 15px;
+	box-shadow: -2px 3px 3px 4px rgb(0 0 0 / 20%);
+	> div:first-child {
+		border-radius: 10px 0px 0px 10px;
+	}
+
+	> div:last-child {
+		border-radius: 0px 10px 10px 0px;
+	}
+}
+
+.endCapButton {
+	background-color: transparent;
+	color: var(--mantine-color-green-4);
+	font-weight: 700;
+	font-size: 18px;
+	width: 130px;
+	&:hover {
+		background-color: transparent;
+		color: var(--mantine-color-green-0);
+	}
+	&:disabled {
+		color: light-dark(
+			var(--mantine-color-white-10),
+			var(--mantine-color-dark-5)
+		);
+	}
+}
+
+.carouselPagination {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: nowrap;
+	column-gap: 5px;
+	margin: 0 auto;
+}
+
+.square {
+	width: 12px;
+	height: 12px;
+	background-color: var(--mantine-color-green-4);
+	padding: 0;
+	&:hover {
+		background-color: var(--mantine-color-green-0);
+	}
+}
+
+.circle {
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background-color: var(--mantine-color-green-4);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0;
+	&:hover {
+		background-color: var(--mantine-color-green-0);
+	}
+}

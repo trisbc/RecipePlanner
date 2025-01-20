@@ -14,13 +14,7 @@ interface DayProps {
 }
 
 export const Day: FC<DayProps> = ({ day, activeItem }) => {
-	const {
-		wrapper,
-		spacer,
-		"recipes-wrapper": recipeWrapper,
-		"spacer-bottom": spacerBottom,
-		title,
-	} = classes;
+	const { wrapper, spacer, recipeWrapper, spacerBottom, title } = classes;
 	const dayState = useCalendarStore().calendarStore[day] as DayState;
 	const recipes = dayState.recipes;
 	return (
@@ -33,8 +27,13 @@ export const Day: FC<DayProps> = ({ day, activeItem }) => {
 				{recipes.map((recipeId, index) =>
 					recipeId ? (
 						<>
-							<InbetweenSlot day={day as string} index={index} />
+							<InbetweenSlot
+								day={day as string}
+								index={index}
+								key={`${day}.${index}.slot`}
+							/>
 							<RecipeCard
+								key={`${day}.${index}.card`}
 								id={recipeId}
 								location={day}
 								index={index}
@@ -45,7 +44,7 @@ export const Day: FC<DayProps> = ({ day, activeItem }) => {
 				)}
 				<BottomSlot day={day as string} index={recipes.length} />
 			</div>
-			<div className={spacerBottom} />
+			{/* <div className={spacerBottom} /> */}
 		</div>
 	);
 };

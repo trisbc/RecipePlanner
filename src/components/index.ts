@@ -1,3 +1,4 @@
 export * from "./Footer"
 export * from "./Navigation"
 export * from "./Recipes"
+export * from "./SettingsPopover"

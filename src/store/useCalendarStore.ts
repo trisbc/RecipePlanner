@@ -78,17 +78,20 @@ export const useCalendarStore = () => {
     }
 
     const deleteRecipe = (day: days, index: number) => {
+        if(day === "drawer") return;
         const { recipes } = store[day] as DayState
         setDay(day, recipes.toSpliced(index, 1))
 
     }
 
     const nullRecipe = (day: days, index: number) => {
+        if(day === "drawer") return;
         const { recipes } = store[day] as DayState
         setDay(day, recipes.toSpliced(index, 1, null))
     }
 
     const addRecipe = (day: days, index: number, recipe: string) => {
+        if(day === "drawer") return;
         const { recipes } = store[day] as DayState
         setDay(day, recipes.toSpliced(index, 0, recipe))
     }

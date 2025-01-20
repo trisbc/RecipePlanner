@@ -1,5 +1,5 @@
 import "@mantine/core/styles.css";
-import { MantineProvider } from "@mantine/core";
+import { CSSVariablesResolver, MantineProvider } from "@mantine/core";
 import { theme } from "./theme";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import { Navigation, Footer } from "./components";
@@ -48,8 +48,19 @@ const Router = () => {
 };
 
 export default function App() {
+	const resolver: CSSVariablesResolver = () => ({
+		dark: {},
+		light: {},
+		variables: {
+			"--popover-shadow": "0px 0px 3px 4px rgb(0 0 0 / 20%)",
+		},
+	});
 	return (
-		<MantineProvider theme={theme} defaultColorScheme="dark">
+		<MantineProvider
+			theme={theme}
+			cssVariablesResolver={resolver}
+			defaultColorScheme="dark"
+		>
 			<Router />
 		</MantineProvider>
 	);

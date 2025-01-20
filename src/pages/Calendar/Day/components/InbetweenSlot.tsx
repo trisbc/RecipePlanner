@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect, useRef } from "react";
 import { useDroppable } from "@dnd-kit/core";
 import classes from "./InbetweenSlot.module.css";
 
@@ -9,6 +9,7 @@ interface InbetweenSlotProps {
 
 export const InbetweenSlot: FC<InbetweenSlotProps> = ({ day, index }) => {
 	const { setNodeRef, isOver } = useDroppable({ id: `${day}:${index}` });
+	const inbetweenRef = useRef<HTMLDivElement>(null);
 	const {
 		arrow,
 		up,
@@ -18,10 +19,20 @@ export const InbetweenSlot: FC<InbetweenSlotProps> = ({ day, index }) => {
 		"inbetween-arrow-wrap": inbetweenArrowWrap,
 		"inbetween-hover": inbetweenHover,
 	} = classes;
+
+	useEffect(() => {
+		if (isOver && inbetweenRef.current) {
+			inbetweenRef.current.scrollIntoView({
+				behavior: "smooth",
+				block: "center",
+			});
+		}
+	}, [isOver]);
+
 	return (
 		<div ref={setNodeRef}>
 			{isOver ? (
-				<div className={inbetweenHover}>
+				<div className={inbetweenHover} ref={inbetweenRef}>
 					<div className={inbetweenArrowWrap}>
 						<i className={`${arrow} ${down}`} />
 					</div>

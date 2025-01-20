@@ -14,8 +14,10 @@ export const PageLayout: FC<PageLayoutProps> = ({
 }) => {
 	return (
 		<DndContext {...props}>
-			<Title ml="lg">{title}</Title>
-			<Box>{children}</Box>
+			<Box mt="16px" px="16px">
+				<Title ml="lg">{title}</Title>
+				<Box>{children}</Box>
+			</Box>
 		</DndContext>
 	);
 };

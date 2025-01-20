@@ -1,16 +1,19 @@
 .wrapper {
 	letter-spacing: rem(-2px);
-	background-color: var(--mantine-color-dark-7);
+	background-color: var(--mantine-color-green-4);
+
 	width: 100%;
-	/* border-radius: 15px; */
 	overflow-y: hidden;
-	padding: 15px 5px;
+	padding: 5px 5px 15px;
 	height: fit-content;
-	color: var(--mantine-color-white-8);
+	color: var(--mantine-color-white-2);
 }
 
-.recipes-wrapper {
+.recipeWrapper {
 	/* background-color: var(--mantine-color-green-9); */
+	border-radius: 5px;
+	box-shadow: inset 2px 3px 3px 4px rgb(0 0 0 / 20%);
+	background-color: var(--mantine-color-green-7);
 	height: 42vh;
 	overflow-y: scroll;
 	padding-left: 10px;
@@ -35,10 +38,10 @@
 }
 
 .spacer {
-	background-color: var(--mantine-color-white-8);
+	background-color: var(--mantine-color-white-2);
 	height: 3px;
 	width: calc(100% - 10px);
-	margin: 5px 5px 0px 5px;
+	margin: 0px 5px 5px 5px;
 	border-radius: 5px;
 	margin-left: 5px;
 	margin-right: 5px;
@@ -48,7 +51,7 @@
 	margin: 0px 10px;
 }
 
-.spacer-bottom {
+.spacerBottom {
 	background-color: var(--mantine-color-white-8);
 	height: 3px;
 	width: calc(100% - 10px);
