@@ -46,8 +46,7 @@
 	max-height: 20vh;
 	overflow-y: scroll;
 	z-index: -1;
-	background-color: transparent;
-	background-color: var(--mantine-color-brown-7);
+	background-color: rgba(0, 0, 0, 0.3);
 	box-shadow: inset 2px 3px 3px 4px rgb(0 0 0 / 20%);
 }
 
