@@ -16,3 +16,11 @@ export interface CalendarStoreState extends Record<string, unknown> {
 export type RecipeStoreState = Record<string, RecipeType> 
 
 export type IngredientStoreState = Record<string, IngredientType>
+
+export interface fileType {
+    recipeBook: number,
+    timeStamp: number,
+    calendarState: CalendarStoreState,
+    recipeState: Record<string, RecipeType>
+    ingredientState: Record<string, IngredientType>
+}

@@ -1,7 +1,9 @@
+
+export type units = 'mg' | 'g' | 'kg' | 'oz' | 'lb' | 'ml' | 'l' | 'cup' | 'pint' | 'quart' | 'gallon';
 export interface IngredientType {
     item: string;
-    unit?: 'mg' | 'g' | 'kg' | 'oz' | 'lb' | 'ml' | 'l' | 'cup' | 'pint' | 'quart' | 'gallon';
-    costPerUnit?: number;
+    unit?: units;
+    costPerUnit?: Record<units, number>;
 }
 
 export interface RecipeType {
@@ -12,6 +14,5 @@ export interface RecipeType {
     /** Time to prep in seconds */
     prepTime?: number;
     /** List of ingredients */
-    ingredients?: IngredientType & {quantity: number}[]
+    ingredients?: {quantity: number, ingredientID: string, unit: units}[]
 }
-
