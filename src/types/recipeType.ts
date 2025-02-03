@@ -1,8 +1,7 @@
-export interface IngedientType {
+export interface IngredientType {
     item: string;
-    cost: number;
-    quantity: number;
-    unit: string;
+    unit?: 'mg' | 'g' | 'kg' | 'oz' | 'lb' | 'ml' | 'l' | 'cup' | 'pint' | 'quart' | 'gallon';
+    costPerUnit?: number;
 }
 
 export interface RecipeType {
@@ -13,5 +12,6 @@ export interface RecipeType {
     /** Time to prep in seconds */
     prepTime?: number;
     /** List of ingredients */
-    ingredients?: IngedientType[]
+    ingredients?: IngredientType & {quantity: number}[]
 }
+

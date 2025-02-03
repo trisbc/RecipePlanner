@@ -1,7 +1,6 @@
 import { FC, useState } from "react";
 import {
 	Box,
-	Button,
 	Group,
 	MantineColorScheme,
 	SegmentedControl,
@@ -61,13 +60,6 @@ const Settings: FC<{ className?: string }> = ({ className }) => {
 						]}
 					/>
 				</Group>
-				<Button
-					w="120px"
-					color="red"
-					onClick={() => setSettingsOpened(false)}
-				>
-					Close
-				</Button>
 			</Stack>
 		</SettingsPopover>
 	);

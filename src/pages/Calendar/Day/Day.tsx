@@ -2,10 +2,11 @@ import { FC } from "react";
 import { Title } from "@mantine/core";
 import { BottomSlot, InbetweenSlot } from "./components";
 import { RecipeType } from "@/types/recipeType";
-import { DayState, days, useCalendarStore } from "@/store/useCalendarStore";
+import { days, useCalendarStore } from "@/store/useCalendarStore";
 import { RecipeCard } from "@/components/Recipes/RecipeCard";
 import classes from "./Day.module.css";
 import { IDType } from "../util";
+import { DayState } from "@/types";
 
 interface DayProps {
 	day: days;
@@ -14,9 +15,8 @@ interface DayProps {
 }
 
 export const Day: FC<DayProps> = ({ day, activeItem }) => {
-	const { wrapper, spacer, recipeWrapper, spacerBottom, title } = classes;
-	const dayState = useCalendarStore().calendarStore[day] as DayState;
-	const recipes = dayState.recipes;
+	const { wrapper, spacer, recipeWrapper, title } = classes;
+	const recipes = useCalendarStore().calendarStore[day] as DayState;
 	return (
 		<div className={wrapper}>
 			<Title order={2} className={title}>
@@ -44,7 +44,6 @@ export const Day: FC<DayProps> = ({ day, activeItem }) => {
 				)}
 				<BottomSlot day={day as string} index={recipes.length} />
 			</div>
-			{/* <div className={spacerBottom} /> */}
 		</div>
 	);
 };

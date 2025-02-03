@@ -1,38 +1,27 @@
+import { CalendarStoreState, DayState } from "@/types";
 import { RecipeType } from "@/types/recipeType";
 import { createStore, useStore } from "zustand";
 
-export type DayState = {
-    day: string;
-    recipes: (string | null)[]
-}
-interface CalendarStoreState extends Record<string, unknown> { 
-    sunday: DayState
-    monday: DayState
-    tuesday: DayState
-    wednesday: DayState
-    thursday: DayState
-    friday: DayState
-    saturday: DayState
-    drawer: string[]
-}
+
+
 export type days = keyof Omit<CalendarStoreState, "drawer">
 
 type CalendarStoreActions = {
     setCalendarState: (nextState: CalendarStoreState) => void
     setDrawer: (nextState: string[]) => void
-    setDay: (dayKey: days, DayState: (string | null)[]) => void
+    setDay: (dayKey: days, DayState: DayState) => void
   }
 
 type CalendarStore =  CalendarStoreState & CalendarStoreActions
 
 export const calendarStore = createStore<CalendarStore>()((set) => ({
-    sunday: {day: "sunday", recipes: []},
-    monday: {day: "monday", recipes: []},
-    tuesday: {day: "tuesday", recipes: []},
-    wednesday: {day: "wednesday", recipes: []},
-    thursday: {day: "thursday", recipes: []},
-    friday: {day: "friday", recipes: []},
-    saturday: {day: "saturday", recipes: []},
+    sunday: [], 
+    monday: [], 
+    tuesday: [], 
+    wednesday: [], 
+    thursday: [], 
+    friday: [], 
+    saturday: [], 
     drawer: [
         "potatoSoup",
         "brocSoup",
@@ -49,7 +38,7 @@ export const calendarStore = createStore<CalendarStore>()((set) => ({
     ],
     // setters 
     setCalendarState: (nextState) => set((prevState) => ({...prevState, nextState})),
-    setDay: (day, recipes) => set((prevState) => ({ ...prevState, [day]: {...prevState[day] as DayState, recipes }})),
+    setDay: (day, recipes) => set((prevState) => ({ ...prevState, [day]: recipes})),
     setDrawer: (nextRecipes) => set({ drawer: nextRecipes })
 }))
 
@@ -61,8 +50,8 @@ export const useCalendarStore = () => {
         const isSameDay = (moveFrom?.day === moveTo.day)
         if (isSameDay) {
             const newIndex = moveFrom.index < moveTo.index ?  moveTo.index - 1 : moveTo.index
-            const currentDay = store[moveFrom.day] as DayState;
-            const currentDayRecipes = [...currentDay.recipes];
+            const currentDayRecipes = store[moveFrom.day] as DayState;
+
             //deleteIndex
             currentDayRecipes.splice(moveFrom.index, 1);
             currentDayRecipes.splice(newIndex, 0, recipe)
@@ -79,20 +68,20 @@ export const useCalendarStore = () => {
 
     const deleteRecipe = (day: days, index: number) => {
         if(day === "drawer") return;
-        const { recipes } = store[day] as DayState
+        const  recipes = store[day] as DayState
         setDay(day, recipes.toSpliced(index, 1))
 
     }
 
     const nullRecipe = (day: days, index: number) => {
         if(day === "drawer") return;
-        const { recipes } = store[day] as DayState
+        const recipes = store[day] as DayState
         setDay(day, recipes.toSpliced(index, 1, null))
     }
 
     const addRecipe = (day: days, index: number, recipe: string) => {
         if(day === "drawer") return;
-        const { recipes } = store[day] as DayState
+        const recipes= store[day] as DayState
         setDay(day, recipes.toSpliced(index, 0, recipe))
     }
 

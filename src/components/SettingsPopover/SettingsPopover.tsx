@@ -1,16 +1,18 @@
 import { FC, ReactNode, useState } from "react";
-import { Burger, BurgerProps, Popover, Text } from "@mantine/core";
+import { Burger, BurgerProps, Button, Popover, Text } from "@mantine/core";
 
 interface SettingsPopoverProps {
 	burgerProps?: BurgerProps;
 	title?: string;
 	children?: ReactNode;
+	hideCloseButton?: boolean;
 }
 
 const SettingsPopover: FC<SettingsPopoverProps> = ({
 	burgerProps,
 	children,
 	title,
+	hideCloseButton,
 }) => {
 	const [settingsOpened, setSettingsOpened] = useState(false);
 	return (
@@ -34,6 +36,16 @@ const SettingsPopover: FC<SettingsPopoverProps> = ({
 					</Text>
 				)}
 				{children}
+				{!hideCloseButton && (
+					<Button
+						mt="16px"
+						w="120px"
+						color="red"
+						onClick={() => setSettingsOpened(false)}
+					>
+						Close
+					</Button>
+				)}
 			</Popover.Dropdown>
 		</Popover>
 	);

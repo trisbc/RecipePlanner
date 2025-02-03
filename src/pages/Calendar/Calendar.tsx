@@ -1,14 +1,5 @@
 import { DragEndEvent, DragOverlay, DragStartEvent } from "@dnd-kit/core";
-import { Day } from "./Day";
-import {
-	Box,
-	Button,
-	NativeSelect,
-	SegmentedControl,
-	Select,
-	Text,
-	useMantineTheme,
-} from "@mantine/core";
+import { Box, NativeSelect, SegmentedControl, Text } from "@mantine/core";
 import { PageLayout } from "../../layouts/PageLayout";
 import { RecipeCardNoDragging } from "@/components/Recipes/RecipeCard";
 import { useState } from "react";
@@ -19,7 +10,6 @@ import { IDType, parseID } from "./util";
 import { Carousel } from "./Carousel";
 import { dayType, numDaysType } from "@/types";
 import SettingsPopover from "@/components/SettingsPopover/SettingsPopover";
-import { useMediaQuery } from "@mantine/hooks";
 import { getOrderedDayList } from "@/constants";
 
 export const Calendar = () => {
@@ -29,10 +19,6 @@ export const Calendar = () => {
 	const { moveRecipe, nullRecipe } = useCalendarStore();
 	const [startDay, setStartDay] = useState<dayType>("monday");
 	const [disableScroll, setDisableScroll] = useState(false);
-	const { breakpoints } = useMantineTheme();
-	console.log(breakpoints.sm);
-	const match = useMediaQuery(`(max-width: ${breakpoints.sm})`);
-	console.log(match);
 	return (
 		<PageLayout
 			title="Calendar"
