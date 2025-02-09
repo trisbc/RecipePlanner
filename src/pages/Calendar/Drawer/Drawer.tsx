@@ -4,6 +4,7 @@ import { FiChevronsDown, FiChevronsUp } from "react-icons/fi";
 import { useCalendarStore } from "@/store/useCalendarStore";
 import { RecipeCard } from "@/components/Recipes/RecipeCard";
 import { IDType } from "../util";
+import { useBreakpoints } from "@/hooks/useBreakpoints";
 
 export const Drawer: FC<{
 	numDays: "three-day" | "seven-day";
@@ -13,6 +14,7 @@ export const Drawer: FC<{
 	const drawerItems = useCalendarStore().calendarStore.drawer;
 	const { drawerWrapper, drawerHandle, recipeContainer, noScroll } = classes;
 	const [open, setOpen] = useState(false);
+	const { isSmallScreen } = useBreakpoints();
 	return (
 		<div className={drawerWrapper}>
 			<button
@@ -32,7 +34,7 @@ export const Drawer: FC<{
 							index={index}
 							key={`${index}.${id}`}
 							location="drawer"
-							widthClass={numDays}
+							widthClass={isSmallScreen ? "full-width" : numDays}
 							activeItem={activeItem}
 						/>
 					))}

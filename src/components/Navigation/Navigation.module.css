@@ -88,6 +88,11 @@
 	padding: 0 16px;
 }
 
+.buttonsWrapper {
+	column-gap: 48px;
+	display: flex;
+}
+
 @media (max-width: $mantine-breakpoint-sm) {
 	.wrapper {
 		flex-wrap: wrap;
@@ -109,6 +114,10 @@
 	.navLinkSelected {
 		border-bottom-left-radius: 10px;
 		border-bottom-right-radius: 10px;
+	}
+	.buttonsWrapper {
+		margin: 0 auto;
+		padding-right: 24px;
 	}
 }
 

@@ -8,6 +8,16 @@ import classes from "./RecipeCard.module.css";
 import { days, recipeStore, useCalendarStore } from "@/store/useCalendarStore";
 import { SyntheticListenerMap } from "@dnd-kit/core/dist/hooks/utilities";
 import { IDType } from "@/pages/Calendar/util";
+import { useBreakpoints } from "@/hooks/useBreakpoints";
+
+const {
+	cardWrapper,
+	cardWrapperInvisible,
+	buttonStack,
+	iconButton,
+	dragHandle,
+	content,
+} = classes;
 
 interface RecipeCardProps {
 	id: string;
@@ -30,30 +40,33 @@ const RecipeCardContent: FC<RecipeCardContentProps> = ({
 	attributes,
 	handleDelete,
 }) => {
+	const { isSmallScreen } = useBreakpoints();
 	const { title, description, prepTime, cookTime } = recipeStore[id];
 	return (
 		<>
-			<div className={classes["button-stack"]}>
-				<button
-					{...listeners}
-					{...attributes}
-					className={`${classes["icon-button"]} ${classes["drag-handle"]}`}
-					type="button"
-				>
-					<FiMove color="black" />
-				</button>
-				<button className={classes["icon-button"]} type="button">
+			<div className={buttonStack}>
+				{!isSmallScreen && (
+					<button
+						{...listeners}
+						{...attributes}
+						className={`${iconButton} ${dragHandle}`}
+						type="button"
+					>
+						<FiMove color="black" />
+					</button>
+				)}
+				<button className={iconButton} type="button">
 					<FiEdit color="black" />
 				</button>
 				<button
-					className={classes["icon-button"]}
+					className={iconButton}
 					onClick={handleDelete}
 					type="button"
 				>
 					<FiTrash color="black" />
 				</button>
 			</div>
-			<div className={classes.content}>
+			<div className={content}>
 				<Title order={3} fz="sm" lh="md" fw="normal">
 					{title}
 				</Title>
@@ -74,8 +87,6 @@ export const RecipeCardNoDragging: FC<RecipeCardProps> = ({
 	id,
 	widthClass,
 }) => {
-	const { cardWrapper, cardWrapperInvisible } = classes;
-
 	let className = cardWrapper;
 	if (widthClass) {
 		className += ` ${classes[widthClass]}`;
@@ -95,7 +106,6 @@ export const RecipeCard: FC<RecipeCardProps> = ({
 	widthClass,
 	activeItem,
 }) => {
-	const { cardWrapper, cardWrapperInvisible } = classes;
 	let className = cardWrapper;
 	let invisClassName = cardWrapperInvisible;
 	if (widthClass) {

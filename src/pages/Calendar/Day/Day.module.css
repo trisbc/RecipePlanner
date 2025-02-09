@@ -2,6 +2,7 @@
 	letter-spacing: rem(-2px);
 	width: 100%;
 	overflow-y: hidden;
+	overflow-x: visible;
 	padding: 5px 5px 15px;
 	height: fit-content;
 	color: var(--mantine-color-white-2);
@@ -34,6 +35,12 @@
 	}
 }
 
+@media (max-width: $mantine-breakpoint-sm) {
+	.recipeWrapper {
+		height: fit-content;
+	}
+}
+
 .spacer {
 	background-color: var(--mantine-color-white-2);
 	height: 3px;
@@ -45,6 +52,9 @@
 }
 
 .title {
+	overflow: hidden;
+	text-transform: capitalize;
+	text-overflow: ellipsis;
 	margin: 0px 10px;
 }
 

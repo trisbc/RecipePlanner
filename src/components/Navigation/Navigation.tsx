@@ -11,6 +11,8 @@ interface NavLinkProps {
 	content: ReactNode;
 }
 
+const { navLinkSelected, navLink, buttonsWrapper } = classes;
+
 const NavLink: FC<NavLinkProps> = ({ to, content: text }) => {
 	const { pathname } = useLocation();
 	let isSelected = false;
@@ -19,7 +21,6 @@ const NavLink: FC<NavLinkProps> = ({ to, content: text }) => {
 		navPath = pathname;
 	}
 	isSelected = navPath === to;
-	const { navLinkSelected, navLink } = classes;
 	return (
 		<Link to={to} className={isSelected ? navLinkSelected : navLink}>
 			{text}
@@ -43,9 +44,11 @@ const Navigation: FC = () => {
 			<NavLink to="Meals" content="Meals" />
 			<NavLink to="Calendar" content="Calendar" />
 			<NavLink to="Pantry" content="Pantry" />
-			<SaveModal />
-			<Box className={burger}>
-				<Settings />
+			<Box className={buttonsWrapper}>
+				<SaveModal />
+				<Box className={burger}>
+					<Settings />
+				</Box>
 			</Box>
 		</Box>
 	);

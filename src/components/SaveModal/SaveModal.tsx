@@ -2,7 +2,6 @@ import { Modal, Button, Tabs, Group, Text, Box, Title } from "@mantine/core";
 import { SaveButton } from "../SaveButton.tsx";
 import { useSaveContext } from "@/hooks";
 import { FiBookOpen, FiSave, FiSettings, FiXCircle } from "react-icons/fi";
-import { useBreakpoints } from "@/hooks/useBreakpoints";
 import { LoadRecipeBook } from "./components/LoadRecipeBook";
 
 export const SaveModal = () => {
@@ -13,8 +12,6 @@ export const SaveModal = () => {
 		setPendingChanges,
 	} = useSaveContext();
 
-	const { isSmallScreen } = useBreakpoints();
-
 	return (
 		<>
 			<Modal
@@ -22,7 +19,7 @@ export const SaveModal = () => {
 				onClose={() => setSaveModalOpen(false)}
 				withCloseButton={false}
 				size="xl"
-				fullScreen={isSmallScreen}
+				fullScreen={false}
 			>
 				<Group>
 					<Title size="h1" order={1} tabIndex={-1}>

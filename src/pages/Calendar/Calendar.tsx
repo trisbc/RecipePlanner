@@ -11,14 +11,32 @@ import { Carousel } from "./Carousel";
 import { dayType, numDaysType } from "@/types";
 import SettingsPopover from "@/components/SettingsPopover/SettingsPopover";
 import { getOrderedDayList } from "@/constants";
+import { useBreakpoints } from "@/hooks/useBreakpoints";
+
+const useDisplayDays = (numDays: numDaysType): numDaysType => {
+	const { isMediumScreen, isSmallScreen } = useBreakpoints();
+	switch (true) {
+		case isMediumScreen:
+			return "three-day";
+		case isSmallScreen:
+			return "seven-day";
+		default:
+			return numDays;
+	}
+};
 
 export const Calendar = () => {
 	const { daysControl, select } = classes;
 	const [activeItem, setActiveItem] = useState<IDType | undefined>();
-	const [numDays, setNumDays] = useState<numDaysType>("seven-day");
+	const [numDaysSelected, setNumDays] = useState<numDaysType>("seven-day");
 	const { moveRecipe, nullRecipe } = useCalendarStore();
 	const [startDay, setStartDay] = useState<dayType>("monday");
 	const [disableScroll, setDisableScroll] = useState(false);
+
+	const { isLargeScreen } = useBreakpoints();
+
+	const numDays = useDisplayDays(numDaysSelected);
+
 	return (
 		<PageLayout
 			title="Calendar"
@@ -28,21 +46,31 @@ export const Calendar = () => {
 		>
 			<Box className={daysControl}>
 				<SettingsPopover title="Calendar settings">
-					<Box>
-						<Text component="label" lh="32px" fz="14px" fw="500">
-							Number of days
-						</Text>
-					</Box>
-
-					<SegmentedControl
-						w="200px"
-						value={numDays}
-						onChange={(value) => setNumDays(value as numDaysType)}
-						data={[
-							{ label: "Three", value: "three-day" },
-							{ label: "Seven", value: "seven-day" },
-						]}
-					/>
+					{isLargeScreen && (
+						<>
+							<Box>
+								<Text
+									component="label"
+									lh="32px"
+									fz="14px"
+									fw="500"
+								>
+									Number of days
+								</Text>
+							</Box>
+							<SegmentedControl
+								w="200px"
+								value={numDays}
+								onChange={(value) =>
+									setNumDays(value as numDaysType)
+								}
+								data={[
+									{ label: "Three", value: "three-day" },
+									{ label: "Seven", value: "seven-day" },
+								]}
+							/>
+						</>
+					)}
 					<NativeSelect
 						className={select}
 						value={startDay}

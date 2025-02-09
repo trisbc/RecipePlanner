@@ -1,7 +1,6 @@
 import { Box, Button } from "@mantine/core";
 import { Day } from "../Day";
 import classes from "./Carousel.module.css";
-
 import { FC, SetStateAction, useState } from "react";
 import { dayType, numDaysType } from "@/types";
 import { getVisibleDays } from "./util";
@@ -11,10 +10,10 @@ interface CarouselProps {
 	numDays: numDaysType;
 }
 
+const { carouselSpacer } = classes;
 export const Carousel: FC<CarouselProps> = ({ startDay, numDays }) => {
-	const { carouselSpacer } = classes;
-
 	const [startIndex, setStartIndex] = useState(0);
+
 	const {
 		days: visibleDays,
 		visibleIndices,
@@ -88,13 +87,6 @@ const Pagination: FC<PaginationProps> = ({
 					title={dayList.at(index)}
 				/>
 			))}
-
-			{/* <Button className={square} />
-			<Button className={square} />
-			<Button className={circle} />
-			<Button className={circle} />
-			<Button className={circle} />
-			<Button className={circle} /> */}
 
 			<Button
 				className={endCapButton}
