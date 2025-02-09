@@ -68,7 +68,9 @@ const createColorSet = (
 };
 
 export default function App() {
-	const { appearance } = useSettingsStore();
+	const {
+		settingsStore: { appearance },
+	} = useSettingsStore();
 	const resolver: CSSVariablesResolver = () => ({
 		dark: {},
 		light: {},

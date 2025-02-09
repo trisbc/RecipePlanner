@@ -2,4 +2,4 @@ export * from "./argTypes"
 export * from "./recipeType"
 export * from "./storeTypes"
 
-export type colorsType = "green" | "white" | "brown" | "cornflower" | "deep-red";
+export type colorsType = "green" | "white" | "brown" | "cornflower" | "deep-red" | "olive" | "rust" | "mustard" | "violet";

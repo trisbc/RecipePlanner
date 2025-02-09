@@ -1,14 +1,6 @@
 import { validationMessages } from "@/constants";
 import { RecipeBookFile } from "@/types";
-import {
-	Box,
-	Button,
-	ButtonGroup,
-	FileButton,
-	Group,
-	TabsPanel,
-	Text,
-} from "@mantine/core";
+import { Box, Button, FileButton, Group, TabsPanel, Text } from "@mantine/core";
 import { FC, useState } from "react";
 import { FiBookOpen, FiUpload } from "react-icons/fi";
 import classes from "./LoadRecipeBook.module.css";
@@ -16,7 +8,13 @@ import classes from "./LoadRecipeBook.module.css";
 const { uploadDefaultError, corruptFileError, fileFormatError } =
 	validationMessages.RecipeBookUpload;
 
-const { infoList, infoListRow } = classes;
+const {
+	infoList,
+	infoListRow,
+	uploadButton,
+	uploadButtonError,
+	uploadButtonChosen,
+} = classes;
 
 export const LoadRecipeBook: FC<{ tabName: string }> = ({ tabName }) => {
 	const [fileContent, setFileContent] = useState<
@@ -35,6 +33,7 @@ export const LoadRecipeBook: FC<{ tabName: string }> = ({ tabName }) => {
 
 		if (file.name.split(".").pop() !== "recipeBook") {
 			setUploadError(fileFormatError);
+			setIsLoadingFile(false);
 			return;
 		}
 
@@ -94,16 +93,9 @@ export const LoadRecipeBook: FC<{ tabName: string }> = ({ tabName }) => {
 					<FileButton onChange={readFile} accept=".recipeBook">
 						{(props) => (
 							<Button
+								className={`${uploadError ? uploadButtonError : uploadButton}${fileContent ? ` ${uploadButtonChosen}` : ""}`}
 								loading={isLoadingFile}
 								variant="outline"
-								h={fileContent ? "32px" : "40vh"}
-								w={fileContent ? "fit-content" : "100%"}
-								ml={fileContent ? "auto" : undefined}
-								color={
-									uploadError
-										? "red"
-										: "var(--primary-color-4)"
-								}
 								leftSection={<FiUpload size={24} />}
 								{...props}
 							>

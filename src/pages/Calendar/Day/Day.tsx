@@ -20,7 +20,9 @@ const { wrapper, spacer, recipeWrapper, title, addButton } = classes;
 
 export const Day: FC<DayProps> = ({ day, activeItem }) => {
 	const { isSmallScreen } = useBreakpoints();
-	const { useDraggable } = useSettingsStore();
+	const {
+		settingsStore: { useDraggable },
+	} = useSettingsStore();
 	const recipes = useCalendarStore().calendarStore[day] as DayState;
 	const disableDrag = isSmallScreen || !useDraggable;
 	return (

@@ -27,6 +27,11 @@ export interface SettingsState extends Record<string, unknown> {
         numDays: numDaysType;
         startDay: dayType;
     }
+    fileInfo: {
+        recipeBook: number;
+        timeStamp: number;
+        filename: string;
+    }
 }
 
 export type RecipeStoreState = Record<string, RecipeType> 
@@ -36,8 +41,9 @@ export type IngredientStoreState = Record<string, IngredientType>
 export interface RecipeBookFile {
     recipeBook: number;
     timeStamp: number;
+    filename: string;
     calendarState: CalendarStoreState;
     recipeState: Record<string, RecipeType>;
     ingredientState: Record<string, IngredientType>;
-    settingsState: SettingsState;
+    settingsState: Omit<SettingsState, "fileInfo">;
 }

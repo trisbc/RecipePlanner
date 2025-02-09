@@ -24,7 +24,7 @@
 
 .colorPickerBorder {
 	background-color: light-dark(
-		var(--mantine-color-gray-1),
+		var(--mantine-color-gray-4),
 		var(--mantine-color-dark-8)
 	);
 	padding: 5px;
@@ -33,7 +33,7 @@
 
 .colorPickerButton {
 	border-color: light-dark(
-		var(--mantine-color-gray-1),
+		var(--mantine-color-gray-4),
 		var(--mantine-color-dark-8)
 	) !important;
 }

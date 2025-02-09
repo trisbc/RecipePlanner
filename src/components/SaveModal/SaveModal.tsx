@@ -3,6 +3,7 @@ import { SaveButton } from "../SaveButton.tsx";
 import { useSaveContext } from "@/hooks";
 import { FiBookOpen, FiSave, FiSettings, FiXCircle } from "react-icons/fi";
 import { LoadRecipeBook } from "./components/LoadRecipeBook";
+import { SaveRecipeBook } from "./components/index.js";
 
 export const SaveModal = () => {
 	const {
@@ -39,7 +40,7 @@ export const SaveModal = () => {
 				<Box mb="12px">
 					<Text
 						size="sm"
-						c={hasPendingChanges ? "red" : "green"}
+						c={hasPendingChanges ? "red" : "var(--primary-color-4)"}
 						fw="bold"
 					>
 						{hasPendingChanges
@@ -76,7 +77,7 @@ export const SaveModal = () => {
 						</Tabs.Tab>
 					</Tabs.List>
 
-					<Tabs.Panel value="save">Gallery tab content</Tabs.Panel>
+					<SaveRecipeBook tabName="save" />
 					<LoadRecipeBook tabName="load" />
 				</Tabs>
 			</Modal>

@@ -35,7 +35,9 @@ export const Calendar = () => {
 	const [disableScroll, setDisableScroll] = useState(false);
 
 	const { isLargeScreen, isSmallScreen } = useBreakpoints();
-	const { useDraggable } = useSettingsStore();
+	const {
+		settingsStore: { useDraggable },
+	} = useSettingsStore();
 	const numDays = useDisplayDays(numDaysSelected);
 	const disableDrag = isSmallScreen || !useDraggable;
 
