@@ -4,6 +4,7 @@ import classes from "./Navigation.module.css";
 import logo from "../../favicon.svg";
 import { Link, useLocation } from "react-router-dom";
 import { Settings } from "./Settings";
+import { SaveModal } from "../SaveModal";
 
 interface NavLinkProps {
 	to: string;
@@ -42,6 +43,7 @@ const Navigation: FC = () => {
 			<NavLink to="Meals" content="Meals" />
 			<NavLink to="Calendar" content="Calendar" />
 			<NavLink to="Pantry" content="Pantry" />
+			<SaveModal />
 			<Box className={burger}>
 				<Settings />
 			</Box>

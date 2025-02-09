@@ -5,6 +5,7 @@ import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import { Navigation, Footer } from "./components";
 import { Meals, Calendar, Pantry, Home } from "./pages";
 import classes from "./App.module.css";
+import { SaveModalProvider } from "./hooks";
 
 const ApplicationLayout = () => {
 	return (
@@ -53,6 +54,8 @@ export default function App() {
 		light: {},
 		variables: {
 			"--popover-shadow": "0px 0px 3px 4px rgb(0 0 0 / 20%)",
+			"--primary-color": "var(--mantine-color-green-4)",
+			"--secondary-color": "var(--mantine-color-brown-5)",
 		},
 	});
 	return (
@@ -61,7 +64,9 @@ export default function App() {
 			cssVariablesResolver={resolver}
 			defaultColorScheme="dark"
 		>
-			<Router />
+			<SaveModalProvider>
+				<Router />
+			</SaveModalProvider>
 		</MantineProvider>
 	);
 }

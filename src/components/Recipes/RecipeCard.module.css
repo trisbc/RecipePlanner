@@ -29,6 +29,7 @@
 .content {
 	padding: 5px;
 	width: 100%;
+	hyphens: auto;
 }
 
 .icon-button {

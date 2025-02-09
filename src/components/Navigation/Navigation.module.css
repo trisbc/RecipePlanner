@@ -8,7 +8,7 @@
 	display: flex;
 	align-items: center;
 	flex-wrap: nowrap;
-	background-color: var(--mantine-color-green-4);
+	background-color: var(--primary-color);
 	width: 100%;
 	height: fit-content;
 }
@@ -86,7 +86,6 @@
 .burger {
 	stroke: var(--mantine-color-white-2);
 	padding: 0 16px;
-	margin-left: auto;
 }
 
 @media (max-width: $mantine-breakpoint-sm) {
@@ -97,7 +96,9 @@
 		width: 100%;
 	}
 	.burger {
-		margin: 0 auto;
+		padding-left: 16px;
+		padding-right: 0;
+		margin-right: auto;
 	}
 	.navLinkBase:has(img) {
 		display: flex;
@@ -111,7 +112,7 @@
 	}
 }
 
-@media (min-width: $mantine-breakpoint-md) {
+@media (min-width: $mantine-breakpoint-sm) {
 	.navLinkBase {
 		width: 100%;
 	}

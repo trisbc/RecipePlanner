@@ -1,4 +1,7 @@
 import { dayType } from "@/types";
+import * as validationMessages from "./validationMessages"
+
+export { validationMessages };
 
 export const dayList: dayType[] = [
     "monday",

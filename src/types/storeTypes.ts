@@ -17,7 +17,7 @@ export type RecipeStoreState = Record<string, RecipeType>
 
 export type IngredientStoreState = Record<string, IngredientType>
 
-export interface fileType {
+export interface RecipeBookFile {
     recipeBook: number,
     timeStamp: number,
     calendarState: CalendarStoreState,

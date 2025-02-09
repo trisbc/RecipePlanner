@@ -1,0 +1,22 @@
+.infoList {
+	display: table;
+	width: 100%;
+}
+
+.infoListRow {
+	display: table-row;
+	border-bottom: 1px solid rgb(255, 0, 0);
+	dt {
+		display: table-cell;
+		font-weight: bold;
+		padding-bottom: 10px;
+		&::after {
+			content: ":";
+		}
+	}
+	dd {
+		margin-left: auto;
+		display: table-cell;
+		text-align: right;
+	}
+}
