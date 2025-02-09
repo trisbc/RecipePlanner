@@ -15,7 +15,7 @@ export const SaveModalProvider: FC<{ children: ReactNode }> = ({
 	children,
 }) => {
 	const [isSaveModalOpen, setSaveModalOpen] = useState(false);
-	const [hasPendingChanges, setPendingChanges] = useState(true);
+	const [hasPendingChanges, setPendingChanges] = useState(false);
 
 	return (
 		<SaveModalContext.Provider

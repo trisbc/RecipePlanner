@@ -3,7 +3,8 @@
 	background-color: var(--mantine-color-white-2);
 	width: 100%;
 	border-radius: 5px;
-	border: 3px solid var(--mantine-color-green-2);
+	border: 3px solid var(--accent-color-2);
+	box-shadow: -2px 2px 2px 2px rgb(0 0 0 / 20%);
 	color: var(--mantine-color-black);
 	min-height: min-content;
 	max-height: max-content;
@@ -17,7 +18,7 @@
 	background-color: transparent;
 	width: 100%;
 	border-radius: 5px;
-	border: transparent solid var(--mantine-color-green-2);
+	border: transparent solid var(--mantine-color-green-0);
 }
 
 .buttonStack {
@@ -27,6 +28,7 @@
 }
 
 .content {
+	overflow-x: hidden;
 	padding: 5px;
 	width: 100%;
 	hyphens: auto;

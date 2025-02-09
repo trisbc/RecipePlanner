@@ -3,7 +3,7 @@
 	bottom: 50px;
 	left: 0;
 	width: 100%;
-	background-color: var(--secondary-color);
+	background-color: var(--secondary-color-4);
 	width: 100%;
 	border-radius: 15px 15px 0 0;
 	padding: 5px 15px 0 15px;
@@ -24,7 +24,7 @@
 	top: -20px;
 	border: none;
 	height: 30px;
-	background-color: var(--secondary-color);
+	background-color: var(--secondary-color-4);
 
 	&:hover {
 		filter: brightness(130%);

@@ -1,11 +1,17 @@
 import "@mantine/core/styles.css";
-import { CSSVariablesResolver, MantineProvider } from "@mantine/core";
+import {
+	CSSVariablesResolver,
+	MantineProvider,
+	useMantineTheme,
+} from "@mantine/core";
 import { theme } from "./theme";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import { Navigation, Footer } from "./components";
 import { Meals, Calendar, Pantry, Home } from "./pages";
 import classes from "./App.module.css";
 import { SaveModalProvider } from "./hooks";
+import { useSettingsStore } from "./store/useSettingsStore";
+import { colorsType } from "./types";
 
 const ApplicationLayout = () => {
 	return (
@@ -48,14 +54,41 @@ const Router = () => {
 	return <RouterProvider router={routes} />;
 };
 
+const createColorSet = (
+	level: "primary" | "secondary" | "accent",
+	color: colorsType,
+	mantineColors: Record<string, string[]>,
+) => {
+	const selectedColorArray = mantineColors[color];
+	const colorSet: Record<string, string> = {};
+	selectedColorArray.forEach(
+		(color, index) => (colorSet[`--${level}-color-${index}`] = color),
+	);
+	return colorSet;
+};
+
 export default function App() {
+	const { appearance } = useSettingsStore();
 	const resolver: CSSVariablesResolver = () => ({
 		dark: {},
 		light: {},
 		variables: {
 			"--popover-shadow": "0px 0px 3px 4px rgb(0 0 0 / 20%)",
-			"--primary-color": "var(--mantine-color-green-4)",
-			"--secondary-color": "var(--mantine-color-brown-5)",
+			...createColorSet(
+				"primary",
+				appearance.primaryColor,
+				theme.colors as unknown as Record<string, string[]>,
+			),
+			...createColorSet(
+				"secondary",
+				appearance.secondaryColor,
+				theme.colors as unknown as Record<string, string[]>,
+			),
+			...createColorSet(
+				"accent",
+				appearance.accentColor,
+				theme.colors as unknown as Record<string, string[]>,
+			),
 		},
 	});
 	return (

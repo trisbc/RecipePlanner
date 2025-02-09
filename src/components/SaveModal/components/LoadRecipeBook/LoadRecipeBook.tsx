@@ -70,20 +70,20 @@ export const LoadRecipeBook: FC<{ tabName: string }> = ({ tabName }) => {
 
 	return (
 		<TabsPanel value={tabName}>
-			<Group justify="center" px="10%">
+			<Group justify="center" px="10%" pb="md">
 				<Box display="flex" mt="lg" w="100%">
 					{fileContent && (
 						<>
 							<Box pt="6px" pr="8px">
 								<FiBookOpen
-									color="var(--primary-color)"
+									color="var(--primary-color-4)"
 									size={20}
 								/>
 							</Box>
 							<Text
 								size="lg"
 								lh="32px"
-								c="var(--primary-color)"
+								c="var(--primary-color-4)"
 								fw="bold"
 								span
 							>
@@ -100,7 +100,9 @@ export const LoadRecipeBook: FC<{ tabName: string }> = ({ tabName }) => {
 								w={fileContent ? "fit-content" : "100%"}
 								ml={fileContent ? "auto" : undefined}
 								color={
-									uploadError ? "red" : "var(--primary-color)"
+									uploadError
+										? "red"
+										: "var(--primary-color-4)"
 								}
 								leftSection={<FiUpload size={24} />}
 								{...props}
@@ -162,14 +164,14 @@ export const LoadRecipeBook: FC<{ tabName: string }> = ({ tabName }) => {
 						<Group>
 							<Button
 								variant="filled"
-								color="var(--primary-color)"
+								color="var(--primary-color-4)"
 							>
 								Use File
 							</Button>
 							<Button
 								variant="outline"
 								onClick={() => setFileContent(undefined)}
-								color="var(--primary-color)"
+								color="var(--primary-color-4)"
 							>
 								Clear
 							</Button>

@@ -3,7 +3,37 @@
 	display: flex;
 	align-items: center;
 	flex-wrap: wrap;
-	background-color: var(--primary-color);
+	background-color: var(--primary-color-4);
 	width: 100%;
 	height: fit-content;
+}
+
+.yes {
+	background-color: green;
+}
+
+.no {
+	background-color: red;
+}
+
+.switchStyles {
+	[class*="mantine-Switch-track"] {
+		margin-left: auto;
+	}
+}
+
+.colorPickerBorder {
+	background-color: light-dark(
+		var(--mantine-color-gray-1),
+		var(--mantine-color-dark-8)
+	);
+	padding: 5px;
+	border-radius: 5px;
+}
+
+.colorPickerButton {
+	border-color: light-dark(
+		var(--mantine-color-gray-1),
+		var(--mantine-color-dark-8)
+	) !important;
 }

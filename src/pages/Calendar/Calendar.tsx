@@ -12,6 +12,7 @@ import { dayType, numDaysType } from "@/types";
 import SettingsPopover from "@/components/SettingsPopover/SettingsPopover";
 import { getOrderedDayList } from "@/constants";
 import { useBreakpoints } from "@/hooks/useBreakpoints";
+import { useSettingsStore } from "@/store/useSettingsStore";
 
 const useDisplayDays = (numDays: numDaysType): numDaysType => {
 	const { isMediumScreen, isSmallScreen } = useBreakpoints();
@@ -33,9 +34,10 @@ export const Calendar = () => {
 	const [startDay, setStartDay] = useState<dayType>("monday");
 	const [disableScroll, setDisableScroll] = useState(false);
 
-	const { isLargeScreen } = useBreakpoints();
-
+	const { isLargeScreen, isSmallScreen } = useBreakpoints();
+	const { useDraggable } = useSettingsStore();
 	const numDays = useDisplayDays(numDaysSelected);
+	const disableDrag = isSmallScreen || !useDraggable;
 
 	return (
 		<PageLayout
@@ -87,22 +89,28 @@ export const Calendar = () => {
 			</Box>
 
 			<Carousel {...{ numDays, startDay }} />
-
-			<Drawer
-				numDays={numDays}
-				activeItem={activeItem}
-				disableScroll={disableScroll}
-			/>
-			<DragOverlay style={{ width: "100vw" }} dropAnimation={null}>
-				{activeItem && (
-					<RecipeCardNoDragging
-						location={activeItem.locationId}
-						index={activeItem.index}
-						id={activeItem.recipeId}
-						widthClass={numDays}
+			{!disableDrag && (
+				<>
+					<Drawer
+						numDays={numDays}
+						activeItem={activeItem}
+						disableScroll={disableScroll}
 					/>
-				)}
-			</DragOverlay>
+					<DragOverlay
+						style={{ width: "calc(100vw - 50px)" }}
+						dropAnimation={null}
+					>
+						{activeItem && (
+							<RecipeCardNoDragging
+								location={activeItem.locationId}
+								index={activeItem.index}
+								id={activeItem.recipeId}
+								widthClass={numDays}
+							/>
+						)}
+					</DragOverlay>
+				</>
+			)}
 		</PageLayout>
 	);
 	function handleDragEnd(event: DragEndEvent) {

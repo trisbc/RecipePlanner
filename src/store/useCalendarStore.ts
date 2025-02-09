@@ -37,7 +37,7 @@ export const calendarStore = createStore<CalendarStore>()((set) => ({
         "clamChowder"
     ],
     // setters 
-    setCalendarState: (nextState) => set((prevState) => ({...prevState, nextState})),
+    setCalendarState: (nextState) => set((prevState) => ({...prevState, ...nextState})),
     setDay: (day, recipes) => set((prevState) => ({ ...prevState, [day]: recipes})),
     setDrawer: (nextRecipes) => set({ drawer: nextRecipes })
 }))
@@ -88,6 +88,7 @@ export const useCalendarStore = () => {
     return { calendarStore: store, moveRecipe, deleteRecipe, nullRecipe }
 }
 
+// TODO replace with an actual store for this
 export const recipeStore: Record<string, RecipeType> = {
     potatoSoup: {
         title: "Potato Soup",

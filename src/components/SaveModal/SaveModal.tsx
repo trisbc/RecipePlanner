@@ -27,11 +27,13 @@ export const SaveModal = () => {
 					</Title>
 					<Button
 						variant="transparent"
+						w="fit-content"
+						p="0"
 						ml="auto"
 						c="black"
 						onClick={() => setSaveModalOpen(false)}
 					>
-						<FiXCircle size="24" />
+						<FiXCircle size="24" color="light-dark(black, white)" />
 					</Button>
 				</Group>
 				<Box mb="12px">
@@ -46,7 +48,7 @@ export const SaveModal = () => {
 					</Text>
 				</Box>
 
-				<Tabs defaultValue="save">
+				<Tabs defaultValue="save" color="var(--primary-color-4)">
 					<Tabs.List grow>
 						<Tabs.Tab
 							value="save"

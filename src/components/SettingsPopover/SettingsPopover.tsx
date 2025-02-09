@@ -1,5 +1,5 @@
 import { FC, ReactNode, useState } from "react";
-import { Burger, BurgerProps, Button, Popover, Text } from "@mantine/core";
+import { Box, Burger, BurgerProps, Button, Popover, Text } from "@mantine/core";
 
 interface SettingsPopoverProps {
 	burgerProps?: BurgerProps;
@@ -35,7 +35,7 @@ const SettingsPopover: FC<SettingsPopoverProps> = ({
 						{title}
 					</Text>
 				)}
-				{children}
+				<Box py="lg">{children}</Box>
 				{!hideCloseButton && (
 					<Button
 						mt="16px"

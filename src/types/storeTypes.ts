@@ -1,3 +1,5 @@
+import { colorsType } from ".";
+import { dayType, numDaysType } from "./argTypes";
 import { IngredientType, RecipeType } from "./recipeType";
 
 export type DayState = (string | null)[]
@@ -13,14 +15,29 @@ export interface CalendarStoreState extends Record<string, unknown> {
     drawer: string[]
 }
 
+export interface SettingsState extends Record<string, unknown> {
+    useDraggable: boolean;
+    appearance: {
+        colorScheme: "auto" | "light" | "dark";
+        primaryColor: colorsType;
+        secondaryColor: colorsType;
+        accentColor: colorsType;
+    }
+    calendar: {
+        numDays: numDaysType;
+        startDay: dayType;
+    }
+}
+
 export type RecipeStoreState = Record<string, RecipeType> 
 
 export type IngredientStoreState = Record<string, IngredientType>
 
 export interface RecipeBookFile {
-    recipeBook: number,
-    timeStamp: number,
-    calendarState: CalendarStoreState,
-    recipeState: Record<string, RecipeType>
-    ingredientState: Record<string, IngredientType>
+    recipeBook: number;
+    timeStamp: number;
+    calendarState: CalendarStoreState;
+    recipeState: Record<string, RecipeType>;
+    ingredientState: Record<string, IngredientType>;
+    settingsState: SettingsState;
 }

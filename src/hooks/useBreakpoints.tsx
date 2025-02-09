@@ -6,7 +6,9 @@ export const useBreakpoints = () => {
 	const isSmallScreen = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
 	const isMediumScreen =
 		useMediaQuery(`(max-width: ${theme.breakpoints.md})`) && !isSmallScreen;
-	const isLargeScreen = useMediaQuery(`(min-width: ${theme.breakpoints.lg})`);
-
-	return { isSmallScreen, isMediumScreen, isLargeScreen };
+	const isLargeScreen = useMediaQuery(`(min-width: ${theme.breakpoints.md})`);
+	const isExtraLargeScreen = useMediaQuery(
+		`(min-width: ${theme.breakpoints.lg})`,
+	);
+	return { isSmallScreen, isMediumScreen, isLargeScreen, isExtraLargeScreen };
 };

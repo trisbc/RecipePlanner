@@ -2,13 +2,14 @@ import { FC } from "react";
 import { DraggableAttributes, useDraggable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
 import { Text, Title } from "@mantine/core";
-import { FiMove, FiEdit, FiTrash } from "react-icons/fi";
+import { FiMove, FiEdit, FiTrash, FiMoreHorizontal } from "react-icons/fi";
 import { RecipeType } from "@/types/recipeType";
 import classes from "./RecipeCard.module.css";
 import { days, recipeStore, useCalendarStore } from "@/store/useCalendarStore";
 import { SyntheticListenerMap } from "@dnd-kit/core/dist/hooks/utilities";
 import { IDType } from "@/pages/Calendar/util";
 import { useBreakpoints } from "@/hooks/useBreakpoints";
+import { useSettingsStore } from "@/store/useSettingsStore";
 
 const {
 	cardWrapper,
@@ -41,11 +42,12 @@ const RecipeCardContent: FC<RecipeCardContentProps> = ({
 	handleDelete,
 }) => {
 	const { isSmallScreen } = useBreakpoints();
+	const { useDraggable } = useSettingsStore();
 	const { title, description, prepTime, cookTime } = recipeStore[id];
 	return (
 		<>
 			<div className={buttonStack}>
-				{!isSmallScreen && (
+				{!isSmallScreen && useDraggable ? (
 					<button
 						{...listeners}
 						{...attributes}
@@ -53,6 +55,10 @@ const RecipeCardContent: FC<RecipeCardContentProps> = ({
 						type="button"
 					>
 						<FiMove color="black" />
+					</button>
+				) : (
+					<button className={`${iconButton}`} type="button">
+						<FiMoreHorizontal color="black" />
 					</button>
 				)}
 				<button className={iconButton} type="button">
