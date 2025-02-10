@@ -10,7 +10,7 @@ type IngredientStoreActions = {
 
 type IngredientStore =  { ingredientStore: IngredientStoreState } & IngredientStoreActions
 
-export const settingsStore = createStore<IngredientStore>()((set) => ({
+export const ingredientStore = createStore<IngredientStore>()((set) => ({
     // setters 
     setIngredientState: (ingredientStore) => set((prevState) => ({...prevState, ingredientStore})),
     addIngredient: (ingredientKey, ingredient) => set((prevState) => ({...prevState, ingredientStore: {...prevState.ingredientStore, [ingredientKey]: ingredient}})),
@@ -23,7 +23,7 @@ export const settingsStore = createStore<IngredientStore>()((set) => ({
 
 
 export const useIngredientStore = () => {
-    const ingredientStore = useStore(settingsStore)
+    const store = useStore(ingredientStore)
     //TODO: add helper functions here as needed
-    return ingredientStore
+    return store
 }

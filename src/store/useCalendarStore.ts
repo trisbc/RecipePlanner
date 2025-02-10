@@ -1,3 +1,4 @@
+import { useSaveContext } from "@/hooks";
 import { CalendarStoreState, DayState } from "@/types";
 import { RecipeType } from "@/types/recipeType";
 import { createStore, useStore } from "zustand";
@@ -22,20 +23,7 @@ export const calendarStore = createStore<CalendarStore>()((set) => ({
     thursday: [], 
     friday: [], 
     saturday: [], 
-    drawer: [
-        "potatoSoup",
-        "brocSoup",
-        "tomatoSoup",
-        "chickenSoup",
-        "carrotSoup",
-        "lentilSoup",
-        "butternutSoup",
-        "frenchOnionSoup",
-        "misoSoup",
-        "splitPeaSoup",
-        "minestroneSoup",
-        "clamChowder"
-    ],
+    drawer: [],
     // setters 
     setCalendarState: (nextState) => set((prevState) => ({...prevState, ...nextState})),
     setDay: (day, recipes) => set((prevState) => ({ ...prevState, [day]: recipes})),
@@ -45,8 +33,10 @@ export const calendarStore = createStore<CalendarStore>()((set) => ({
 
 export const useCalendarStore = () => {
     const { setCalendarState, setDay, setDrawer, ...store } = useStore(calendarStore)
+    const { performAction } = useSaveContext()
 
     const moveRecipe = (recipe: string, moveTo: { day: days, index: number}, moveFrom?: { day: days, index: number}) => {
+        performAction()
         const isSameDay = (moveFrom?.day === moveTo.day)
         if (isSameDay) {
             const newIndex = moveFrom.index < moveTo.index ?  moveTo.index - 1 : moveTo.index
@@ -68,6 +58,7 @@ export const useCalendarStore = () => {
 
     const deleteRecipe = (day: days, index: number) => {
         if(day === "drawer") return;
+        performAction()
         const  recipes = store[day] as DayState
         setDay(day, recipes.toSpliced(index, 1))
 
@@ -75,15 +66,17 @@ export const useCalendarStore = () => {
 
     const nullRecipe = (day: days, index: number) => {
         if(day === "drawer") return;
+        performAction()
         const recipes = store[day] as DayState
         setDay(day, recipes.toSpliced(index, 1, null))
     }
 
     const addRecipe = (day: days, index: number, recipe: string) => {
         if(day === "drawer") return;
+        performAction()
         const recipes= store[day] as DayState
         setDay(day, recipes.toSpliced(index, 0, recipe))
     }
 
-    return { calendarStore: store, moveRecipe, deleteRecipe, nullRecipe }
+    return { calendarStore: store, moveRecipe, deleteRecipe, nullRecipe, setCalendarState }
 }

@@ -1,32 +1,31 @@
-import { validationMessages } from "@/constants";
 import { RecipeBookFile } from "@/types";
-import {
-	Anchor,
-	Box,
-	Button,
-	FileButton,
-	Group,
-	TabsPanel,
-	Text,
-} from "@mantine/core";
+import { Anchor, Box, Button, Group, TabsPanel, Text } from "@mantine/core";
 import { FC, useState } from "react";
-import { FiBookOpen, FiUpload } from "react-icons/fi";
+import { FiBookOpen } from "react-icons/fi";
 import classes from "./SaveRecipeBook.module.css";
-import { useRecipeStore } from "@/store/useRecipeStore";
-import { useCalendarStore } from "@/store/useCalendarStore";
-import { useIngredientStore } from "@/store/useIngredientStore";
-import { useSettingsStore } from "@/store/useSettingsStore";
+import {
+	useRecipeStore,
+	useCalendarStore,
+	useIngredientStore,
+	useSettingsStore,
+} from "@/store";
 import { useSaveContext } from "@/hooks";
 
 const { infoList, infoListRow, saveLink } = classes;
 
 export const SaveRecipeBook: FC<{ tabName: string }> = ({ tabName }) => {
-	const { setPendingChanges } = useSaveContext();
+	const {
+		lastChangeTimeStamp,
+		setIsPendingDownload,
+		isPendingDownload,
+		setSaveModalOpen,
+	} = useSaveContext();
 	const { calendarStore } = useCalendarStore();
 	const { ingredientStore } = useIngredientStore();
 	const { recipeStore } = useRecipeStore();
 	const {
 		settingsStore: { fileInfo, ...settingsStore },
+		setFileInfo,
 	} = useSettingsStore();
 
 	const currentFile: RecipeBookFile = {
@@ -36,12 +35,10 @@ export const SaveRecipeBook: FC<{ tabName: string }> = ({ tabName }) => {
 		recipeState: recipeStore,
 		settingsState: settingsStore,
 	};
-
 	const jsonString = `data:text/json;chatset=utf-8,${encodeURIComponent(
-		JSON.stringify({ ...currentFile, timeStamp: Date.now() }, null, 2),
+		JSON.stringify({ ...currentFile, timeStamp: lastChangeTimeStamp }),
 	)}`;
-
-	const [awaitingSave, setAwaitingSave] = useState(false);
+	const fileTimeStamp = fileInfo.timeStamp;
 
 	return (
 		<TabsPanel value={tabName}>
@@ -66,10 +63,16 @@ export const SaveRecipeBook: FC<{ tabName: string }> = ({ tabName }) => {
 					<div className={infoListRow}>
 						<dt>Last Saved</dt>
 						<dd>
-							{currentFile.timeStamp
-								? new Date(
-										currentFile.timeStamp,
-									).toLocaleString()
+							{fileTimeStamp
+								? new Date(fileTimeStamp).toLocaleString()
+								: "unknown"}
+						</dd>
+					</div>
+					<div className={infoListRow}>
+						<dt>Most recent change</dt>
+						<dd>
+							{lastChangeTimeStamp
+								? new Date(lastChangeTimeStamp).toLocaleString()
 								: "unknown"}
 						</dd>
 					</div>
@@ -86,13 +89,18 @@ export const SaveRecipeBook: FC<{ tabName: string }> = ({ tabName }) => {
 						</dd>
 					</div>
 				</dl>
-				{awaitingSave ? (
+				{/* TODO: replace this with its own modal */}
+				{isPendingDownload ? (
 					<Button
 						variant="outline"
 						color="var(--accent-color-4)"
 						onClick={() => {
-							setPendingChanges(false);
-							setAwaitingSave(false);
+							setFileInfo({
+								...fileInfo,
+								timeStamp: lastChangeTimeStamp,
+							});
+							setIsPendingDownload(false);
+							setSaveModalOpen(false);
 						}}
 					>
 						Confirm file downloaded
@@ -102,7 +110,7 @@ export const SaveRecipeBook: FC<{ tabName: string }> = ({ tabName }) => {
 						href={jsonString}
 						download={currentFile.filename}
 						className={saveLink}
-						onClick={() => setAwaitingSave(true)}
+						onClick={() => setIsPendingDownload(true)}
 					>
 						Save file
 					</Anchor>

@@ -1,9 +1,16 @@
 import { validationMessages } from "@/constants";
-import { RecipeBookFile } from "@/types";
+import { RecipeBookFile, SettingsState } from "@/types";
 import { Box, Button, FileButton, Group, TabsPanel, Text } from "@mantine/core";
 import { FC, useState } from "react";
 import { FiBookOpen, FiUpload } from "react-icons/fi";
 import classes from "./LoadRecipeBook.module.css";
+import {
+	useCalendarStore,
+	useIngredientStore,
+	useRecipeStore,
+	useSettingsStore,
+} from "@/store";
+import { useSaveContext } from "@/hooks";
 
 const { uploadDefaultError, corruptFileError, fileFormatError } =
 	validationMessages.RecipeBookUpload;
@@ -17,6 +24,11 @@ const {
 } = classes;
 
 export const LoadRecipeBook: FC<{ tabName: string }> = ({ tabName }) => {
+	const { setCalendarState } = useCalendarStore();
+	const { setIngredientState } = useIngredientStore();
+	const { setRecipeState } = useRecipeStore();
+	const { setSettingsState } = useSettingsStore();
+	const { setSaveModalOpen, setLastChangeTimeStamp } = useSaveContext();
 	const [fileContent, setFileContent] = useState<
 		(RecipeBookFile & { filename: string }) | undefined
 	>();
@@ -157,6 +169,31 @@ export const LoadRecipeBook: FC<{ tabName: string }> = ({ tabName }) => {
 							<Button
 								variant="filled"
 								color="var(--primary-color-4)"
+								onClick={() => {
+									const {
+										calendarState,
+										ingredientState,
+										recipeState,
+										settingsState,
+										filename,
+										timeStamp,
+										recipeBook,
+									} = fileContent;
+
+									setCalendarState(calendarState);
+									setIngredientState(ingredientState);
+									setRecipeState(recipeState);
+									setSettingsState({
+										fileInfo: {
+											filename,
+											timeStamp,
+											recipeBook,
+										},
+										...settingsState,
+									} as SettingsState);
+									setSaveModalOpen(false);
+									setLastChangeTimeStamp(timeStamp);
+								}}
 							>
 								Use File
 							</Button>

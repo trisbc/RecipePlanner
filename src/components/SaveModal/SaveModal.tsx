@@ -10,7 +10,7 @@ export const SaveModal = () => {
 		isSaveModalOpen,
 		setSaveModalOpen,
 		hasPendingChanges,
-		setPendingChanges,
+		isPendingDownload,
 	} = useSaveContext();
 
 	return (
@@ -21,21 +21,28 @@ export const SaveModal = () => {
 				withCloseButton={false}
 				size="xl"
 				fullScreen={false}
+				closeOnClickOutside={!isPendingDownload}
+				closeOnEscape={!isPendingDownload}
 			>
 				<Group>
 					<Title size="h1" order={1} tabIndex={-1}>
 						Manage your RecipeBook
 					</Title>
-					<Button
-						variant="transparent"
-						w="fit-content"
-						p="0"
-						ml="auto"
-						c="black"
-						onClick={() => setSaveModalOpen(false)}
-					>
-						<FiXCircle size="24" color="light-dark(black, white)" />
-					</Button>
+					{!isPendingDownload && (
+						<Button
+							variant="transparent"
+							w="fit-content"
+							p="0"
+							ml="auto"
+							c="black"
+							onClick={() => setSaveModalOpen(false)}
+						>
+							<FiXCircle
+								size="24"
+								color="light-dark(black, white)"
+							/>
+						</Button>
+					)}
 				</Group>
 				<Box mb="12px">
 					<Text
@@ -49,7 +56,11 @@ export const SaveModal = () => {
 					</Text>
 				</Box>
 
-				<Tabs defaultValue="save" color="var(--primary-color-4)">
+				<Tabs
+					defaultValue="save"
+					color="var(--primary-color-4)"
+					keepMounted={false}
+				>
 					<Tabs.List grow>
 						<Tabs.Tab
 							value="save"

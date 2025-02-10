@@ -68,6 +68,14 @@ const createColorSet = (
 };
 
 export default function App() {
+	return (
+		<SaveModalProvider>
+			<MantineLayer />
+		</SaveModalProvider>
+	);
+}
+
+const MantineLayer = () => {
 	const {
 		settingsStore: { appearance },
 	} = useSettingsStore();
@@ -99,9 +107,7 @@ export default function App() {
 			cssVariablesResolver={resolver}
 			defaultColorScheme="dark"
 		>
-			<SaveModalProvider>
-				<Router />
-			</SaveModalProvider>
+			<Router />
 		</MantineProvider>
 	);
-}
+};

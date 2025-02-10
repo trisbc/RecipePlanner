@@ -1,10 +1,15 @@
+import { useTimeStamp } from "@/store";
 import { createContext, useState, useContext, FC, ReactNode } from "react";
 
 interface SaveModalContextProps {
 	isSaveModalOpen: boolean;
 	setSaveModalOpen: (isOpen: boolean) => void;
 	hasPendingChanges: boolean;
-	setPendingChanges: (hasChanges: boolean) => void;
+	lastChangeTimeStamp: number;
+	performAction: () => void;
+	setLastChangeTimeStamp: (time: number) => void;
+	isPendingDownload: boolean;
+	setIsPendingDownload: (isPendingDownload: boolean) => void;
 }
 
 const SaveModalContext = createContext<SaveModalContextProps | undefined>(
@@ -15,15 +20,24 @@ export const SaveModalProvider: FC<{ children: ReactNode }> = ({
 	children,
 }) => {
 	const [isSaveModalOpen, setSaveModalOpen] = useState(false);
-	const [hasPendingChanges, setPendingChanges] = useState(true);
+	const [lastChangeTimeStamp, setLastChangeTimeStamp] = useState<number>(0);
+	const [isPendingDownload, setIsPendingDownload] = useState(false);
+	const fileTimeStamp = useTimeStamp();
+	const performAction = () => {
+		setLastChangeTimeStamp(Date.now());
+	};
 
 	return (
 		<SaveModalContext.Provider
 			value={{
 				isSaveModalOpen,
 				setSaveModalOpen,
-				hasPendingChanges,
-				setPendingChanges,
+				isPendingDownload,
+				setIsPendingDownload,
+				hasPendingChanges: lastChangeTimeStamp !== fileTimeStamp,
+				lastChangeTimeStamp,
+				setLastChangeTimeStamp,
+				performAction,
 			}}
 		>
 			{children}

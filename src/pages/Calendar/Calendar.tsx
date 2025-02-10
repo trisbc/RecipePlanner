@@ -25,13 +25,17 @@ const useDisplayDays = (numDays: numDaysType): numDaysType => {
 			return numDays;
 	}
 };
+const { daysControl, select } = classes;
 
 export const Calendar = () => {
-	const { daysControl, select } = classes;
 	const [activeItem, setActiveItem] = useState<IDType | undefined>();
-	const [numDaysSelected, setNumDays] = useState<numDaysType>("seven-day");
 	const { moveRecipe, nullRecipe } = useCalendarStore();
-	const [startDay, setStartDay] = useState<dayType>("monday");
+	const {
+		calendarActions: { setNumDays, setStartDay },
+		settingsStore: {
+			calendar: { numDays: numDaysSelected, startDay },
+		},
+	} = useSettingsStore();
 	const [disableScroll, setDisableScroll] = useState(false);
 
 	const { isLargeScreen, isSmallScreen } = useBreakpoints();
