@@ -3,7 +3,7 @@ import { Button, Title } from "@mantine/core";
 import { BottomSlot, InbetweenSlot } from "./components";
 import { RecipeType } from "@/types/recipeType";
 import { days, useCalendarStore } from "@/store/useCalendarStore";
-import { RecipeCard } from "@/components";
+import { RecipeCard } from "@/components/cards";
 import classes from "./Day.module.css";
 import { IDType } from "../util";
 import { DayState } from "@/types";

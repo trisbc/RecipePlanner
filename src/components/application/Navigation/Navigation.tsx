@@ -4,7 +4,7 @@ import classes from "./Navigation.module.css";
 import logo from "../../../favicon.svg";
 import { Link, useLocation } from "react-router-dom";
 import { Settings } from "./Settings";
-import { SaveModal } from "@/components";
+import { SaveModal } from "@/components/modals/SaveModal";
 
 interface NavLinkProps {
 	to: string;

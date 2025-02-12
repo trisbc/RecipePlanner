@@ -1,17 +1,13 @@
 import "@mantine/core/styles.css";
-import {
-	CSSVariablesResolver,
-	MantineProvider,
-	useMantineTheme,
-} from "@mantine/core";
-import { theme } from "./theme";
+import { CSSVariablesResolver, MantineProvider } from "@mantine/core";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
-import { Navigation, Footer } from "./components";
-import { Meals, Calendar, Pantry, Home } from "./pages";
 import classes from "./App.module.css";
+import { Meals, Calendar, Pantry, Home } from "./pages";
+import { Footer, Navigation } from "./components/application";
 import { SaveModalProvider } from "./hooks";
-import { useSettingsStore } from "./store/useSettingsStore";
 import { colorsType } from "./types";
+import { theme } from "./theme";
+import { useSettingsStore } from "./store/useSettingsStore";
 
 const ApplicationLayout = () => {
 	return (

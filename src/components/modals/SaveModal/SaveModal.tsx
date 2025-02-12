@@ -1,9 +1,9 @@
 import { Modal, Button, Tabs, Group, Text, Box, Title } from "@mantine/core";
-import { SaveButton } from "../SaveButton";
 import { useSaveContext } from "@/hooks";
 import { FiBookOpen, FiSave, FiSettings, FiXCircle } from "react-icons/fi";
 import { LoadRecipeBook } from "./components/LoadRecipeBook";
 import { SaveRecipeBook } from "./components";
+import { SaveButton } from "@/components/SaveButton";
 
 export const SaveModal = () => {
 	const {
