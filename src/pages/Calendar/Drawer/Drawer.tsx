@@ -2,7 +2,7 @@ import { FC, useState } from "react";
 import classes from "./Drawer.module.css";
 import { FiChevronsDown, FiChevronsUp } from "react-icons/fi";
 import { useCalendarStore } from "@/store/useCalendarStore";
-import { RecipeCard } from "@/components/Recipes/RecipeCard";
+import { RecipeCard } from "@/components";
 import { IDType } from "../util";
 import { useBreakpoints } from "@/hooks/useBreakpoints";
 

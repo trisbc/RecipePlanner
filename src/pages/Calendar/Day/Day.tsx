@@ -1,9 +1,9 @@
 import { FC } from "react";
-import { Box, Button, Title } from "@mantine/core";
+import { Button, Title } from "@mantine/core";
 import { BottomSlot, InbetweenSlot } from "./components";
 import { RecipeType } from "@/types/recipeType";
 import { days, useCalendarStore } from "@/store/useCalendarStore";
-import { RecipeCard } from "@/components/Recipes/RecipeCard";
+import { RecipeCard } from "@/components";
 import classes from "./Day.module.css";
 import { IDType } from "../util";
 import { DayState } from "@/types";

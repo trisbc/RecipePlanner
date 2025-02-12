@@ -1,7 +1,7 @@
 import { DragEndEvent, DragOverlay, DragStartEvent } from "@dnd-kit/core";
 import { Box, NativeSelect, SegmentedControl, Text } from "@mantine/core";
 import { PageLayout } from "../../layouts/PageLayout";
-import { RecipeCardNoDragging } from "@/components/Recipes/RecipeCard";
+import { RecipeCardNoDragging } from "@/components";
 import { useState } from "react";
 import { days, useCalendarStore } from "@/store/useCalendarStore";
 import classes from "./Calendar.module.css";
