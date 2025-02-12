@@ -1,10 +1,10 @@
 import { FC, ReactNode } from "react";
 import { Box } from "@mantine/core";
 import classes from "./Navigation.module.css";
-import logo from "../../favicon.svg";
+import logo from "../../../favicon.svg";
 import { Link, useLocation } from "react-router-dom";
 import { Settings } from "./Settings";
-import { SaveModal } from "../SaveModal";
+import { SaveModal } from "@/components";
 
 interface NavLinkProps {
 	to: string;
