@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { Button, Title } from "@mantine/core";
 import { BottomSlot, InbetweenSlot } from "./components";
 import { RecipeType } from "@/types/recipeType";
@@ -6,10 +6,11 @@ import { days, useCalendarStore } from "@/store/useCalendarStore";
 import { RecipeCard } from "@/components/cards";
 import classes from "./Day.module.css";
 import { IDType } from "../util";
-import { DayState } from "@/types";
+import { DayState, dayType } from "@/types";
 import { useBreakpoints } from "@/hooks/useBreakpoints";
 import { FiPlus } from "react-icons/fi";
 import { useSettingsStore } from "@/store/useSettingsStore";
+import { AddRecipeModal } from "@/components/modals/AddRecipeModal";
 
 interface DayProps {
 	day: days;
@@ -25,6 +26,9 @@ export const Day: FC<DayProps> = ({ day, activeItem }) => {
 	} = useSettingsStore();
 	const recipes = useCalendarStore().calendarStore[day] as DayState;
 	const disableDrag = isSmallScreen || !useDraggable;
+
+	const [isAddOpen, setIsAddOpen] = useState(false);
+
 	return (
 		<div className={wrapper}>
 			<Title order={2} className={title}>
@@ -51,9 +55,20 @@ export const Day: FC<DayProps> = ({ day, activeItem }) => {
 					) : null,
 				)}
 				{disableDrag ? (
-					<Button className={addButton} leftSection={<FiPlus />}>
-						Add Recipe
-					</Button>
+					<>
+						<Button
+							className={addButton}
+							leftSection={<FiPlus />}
+							onClick={() => setIsAddOpen(true)}
+						>
+							Add Recipe
+						</Button>
+						<AddRecipeModal
+							isOpen={isAddOpen}
+							onClose={() => setIsAddOpen(false)}
+							day={day as dayType}
+						/>
+					</>
 				) : (
 					<BottomSlot day={day as string} index={recipes.length} />
 				)}

@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { DraggableAttributes, useDraggable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
-import { Text, Title } from "@mantine/core";
+import { Checkbox, Group, Text, Title } from "@mantine/core";
 import { FiMove, FiEdit, FiTrash, FiMoreHorizontal } from "react-icons/fi";
 import classes from "./RecipeCard.module.css";
 import { days, useCalendarStore } from "@/store/useCalendarStore";
@@ -146,6 +146,25 @@ export const RecipeCard: FC<RecipeCardProps> = ({
 					deleteRecipe(location, index);
 				}}
 			/>
+		</div>
+	);
+};
+
+export const RecipeCardCheckBox: FC = ({}) => {
+	return (
+		<div className={cardWrapper} style={{ height: "fit-content" }}>
+			<div className={content}>
+				<Group>
+					<Checkbox />
+					<div>
+						<Title order={3} fz="sm" lh="md" fw="normal">
+							Test Recipe
+						</Title>
+
+						<Text fz="xs">test desc</Text>
+					</div>
+				</Group>
+			</div>
 		</div>
 	);
 };
