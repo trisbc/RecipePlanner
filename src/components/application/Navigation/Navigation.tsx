@@ -5,6 +5,7 @@ import logo from "../../../favicon.svg";
 import { Link, useLocation } from "react-router-dom";
 import { Settings } from "./Settings";
 import { SaveModal } from "@/components/modals/SaveModal";
+import { StartupModal } from "@/components/modals/StartupModal";
 
 interface NavLinkProps {
 	to: string;
@@ -50,6 +51,7 @@ const Navigation: FC = () => {
 					<Settings />
 				</Box>
 			</Box>
+			<StartupModal />
 		</Box>
 	);
 };

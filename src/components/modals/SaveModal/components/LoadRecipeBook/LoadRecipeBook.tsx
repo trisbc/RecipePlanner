@@ -1,19 +1,8 @@
-import { validationMessages } from "@/constants";
-import { RecipeBookFile, SettingsState } from "@/types";
 import { Box, Button, FileButton, Group, TabsPanel, Text } from "@mantine/core";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { FiBookOpen, FiUpload } from "react-icons/fi";
 import classes from "./LoadRecipeBook.module.css";
-import {
-	useCalendarStore,
-	useIngredientStore,
-	useRecipeStore,
-	useSettingsStore,
-} from "@/store";
-import { useSaveContext } from "@/hooks";
-
-const { uploadDefaultError, corruptFileError, fileFormatError } =
-	validationMessages.RecipeBookUpload;
+import { useLoadFile } from "@/hooks/useFileSync";
 
 const {
 	infoList,
@@ -24,60 +13,14 @@ const {
 } = classes;
 
 export const LoadRecipeBook: FC<{ tabName: string }> = ({ tabName }) => {
-	const { setCalendarState } = useCalendarStore();
-	const { setIngredientState } = useIngredientStore();
-	const { setRecipeState } = useRecipeStore();
-	const { setSettingsState } = useSettingsStore();
-	const { setSaveModalOpen, setLastChangeTimeStamp } = useSaveContext();
-	const [fileContent, setFileContent] = useState<
-		(RecipeBookFile & { filename: string }) | undefined
-	>();
-	const [isLoadingFile, setIsLoadingFile] = useState(false);
-	const [uploadError, setUploadError] = useState<string | undefined>(
-		undefined,
-	);
-
-	const readFile = (file: File | null) => {
-		setUploadError(undefined);
-		setIsLoadingFile(true);
-		setFileContent(undefined);
-		if (!file) return;
-
-		if (file.name.split(".").pop() !== "recipeBook") {
-			setUploadError(fileFormatError);
-			setIsLoadingFile(false);
-			return;
-		}
-
-		const fileReader = new FileReader();
-		fileReader.onload = (e) => {
-			const content = e.target?.result;
-			try {
-				let parsedFile = undefined;
-				if (!content || typeof content !== "string") {
-					throw new Error(corruptFileError);
-				}
-				try {
-					parsedFile = JSON.parse(content) as RecipeBookFile;
-				} catch (parseError) {
-					throw new Error(corruptFileError);
-				}
-				setFileContent({ ...parsedFile, filename: file.name });
-			} catch (error) {
-				const errorMessage =
-					(error as Error)?.message ?? uploadDefaultError;
-				setUploadError(errorMessage);
-			} finally {
-				setIsLoadingFile(false);
-			}
-		};
-
-		fileReader.onerror = () => {
-			setUploadError(uploadDefaultError);
-		};
-
-		fileReader.readAsText(file, "UTF-8");
-	};
+	const {
+		fileContent,
+		readFile,
+		useFile,
+		uploadError,
+		isLoadingFile,
+		resetFile,
+	} = useLoadFile();
 
 	return (
 		<TabsPanel value={tabName}>
@@ -169,37 +112,13 @@ export const LoadRecipeBook: FC<{ tabName: string }> = ({ tabName }) => {
 							<Button
 								variant="filled"
 								color="var(--primary-color-4)"
-								onClick={() => {
-									const {
-										calendarState,
-										ingredientState,
-										recipeState,
-										settingsState,
-										filename,
-										timeStamp,
-										recipeBook,
-									} = fileContent;
-
-									setCalendarState(calendarState);
-									setIngredientState(ingredientState);
-									setRecipeState(recipeState);
-									setSettingsState({
-										fileInfo: {
-											filename,
-											timeStamp,
-											recipeBook,
-										},
-										...settingsState,
-									} as SettingsState);
-									setSaveModalOpen(false);
-									setLastChangeTimeStamp(timeStamp);
-								}}
+								onClick={() => useFile}
 							>
 								Use File
 							</Button>
 							<Button
 								variant="outline"
-								onClick={() => setFileContent(undefined)}
+								onClick={resetFile}
 								color="var(--primary-color-4)"
 							>
 								Clear

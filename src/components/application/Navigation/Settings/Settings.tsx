@@ -1,27 +1,24 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect } from "react";
 import {
 	Box,
-	Button,
-	ButtonGroup,
 	Group,
 	MantineColorScheme,
 	SegmentedControl,
 	Stack,
 	Switch,
 	Text,
-	Title,
 	Tooltip,
 	useMantineColorScheme,
 	useMantineTheme,
 } from "@mantine/core";
 import SettingsPopover from "@/components/SettingsPopover/SettingsPopover";
 import { useSettingsStore } from "@/store/useSettingsStore";
-import { FiCheck, FiHelpCircle } from "react-icons/fi";
-
+import { FiHelpCircle } from "react-icons/fi";
 import classes from "./Settings.module.css";
 import { useBreakpoints } from "@/hooks/useBreakpoints";
 import { colorsType } from "@/types";
-const { switchStyles, colorPickerBorder, colorPickerButton } = classes;
+import { ColorPicker } from "@/components/inputs/ColorPicker";
+const { switchStyles } = classes;
 
 const isColorScheme = (value: string) => {
 	switch (value) {
@@ -33,17 +30,6 @@ const isColorScheme = (value: string) => {
 			return false;
 	}
 };
-
-const colors: colorsType[] = [
-	"green",
-	"brown",
-	"cornflower",
-	"deep-red",
-	"olive",
-	"rust",
-	"mustard",
-	"violet",
-];
 
 const Settings: FC<{ className?: string }> = ({ className }) => {
 	const mantineTheme = useMantineColorScheme();
@@ -132,10 +118,9 @@ const Settings: FC<{ className?: string }> = ({ className }) => {
 				<Text component="h3" lh="24px" fz="16px" fw="700">
 					Colors
 				</Text>
-				<Group>
+				<Group grow>
 					<ColorPicker
 						title="Primary"
-						colors={colors}
 						selectedColor={appearance.primaryColor}
 						onSelectColor={(color) =>
 							appearanceActions.setPrimaryColor(color)
@@ -143,7 +128,6 @@ const Settings: FC<{ className?: string }> = ({ className }) => {
 					/>
 					<ColorPicker
 						title="Secondary"
-						colors={colors}
 						selectedColor={appearance.secondaryColor}
 						onSelectColor={(color) =>
 							appearanceActions.setSecondaryColor(color)
@@ -151,7 +135,6 @@ const Settings: FC<{ className?: string }> = ({ className }) => {
 					/>
 					<ColorPicker
 						title="Accent"
-						colors={colors}
 						selectedColor={appearance.accentColor}
 						onSelectColor={(color) =>
 							appearanceActions.setAccentColor(color)
@@ -164,42 +147,3 @@ const Settings: FC<{ className?: string }> = ({ className }) => {
 };
 
 export default Settings;
-
-interface ColorPickerProps {
-	title: string;
-	selectedColor: colorsType;
-	onSelectColor: (color: colorsType) => void;
-	colors: colorsType[];
-}
-
-const ColorPicker: FC<ColorPickerProps> = ({
-	title,
-	selectedColor,
-	onSelectColor,
-	colors,
-}) => {
-	return (
-		<Box>
-			<Box w="120px">
-				<Text component="label" lh="32px" fz="14px" fw="500">
-					{title}
-				</Text>
-			</Box>
-			<Box className={colorPickerBorder}>
-				<ButtonGroup borderWidth={5} orientation="vertical">
-					{colors.map((color) => (
-						<Button
-							bg={`var(--mantine-color-${color}-4)`}
-							onClick={() => {
-								onSelectColor(color);
-							}}
-							className={colorPickerButton}
-						>
-							{color === selectedColor && <FiCheck size="24px" />}
-						</Button>
-					))}
-				</ButtonGroup>
-			</Box>
-		</Box>
-	);
-};

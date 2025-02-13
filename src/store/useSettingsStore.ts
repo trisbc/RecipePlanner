@@ -81,7 +81,11 @@ export const settingsStore = createStore<SettingsStore>()((set) => ({
 	setFileInfo: (fileInfo) => set((prevState) => ({ ...prevState, fileInfo })),
 }));
 
-export const useSettingsStore = () => {
+export const useSettingsStore = (suppressChangeTracking?: boolean) => {
+	const trackChange = () => {
+		if (!suppressChangeTracking) performAction();
+	};
+
 	const {
 		setSettingsState,
 		setUseDraggable,
@@ -95,16 +99,16 @@ export const useSettingsStore = () => {
 		settingsStore: store,
 		setSettingsState,
 		setUseDraggable: (useDraggable: boolean) => {
-			performAction();
+			trackChange();
 			setUseDraggable(useDraggable);
 		},
 		calendarActions: {
 			setNumDays: (numDays: SettingsState["calendar"]["numDays"]) => {
-				performAction();
+				trackChange();
 				calendarActions.setNumDays(numDays);
 			},
 			setStartDay: (startDay: SettingsState["calendar"]["startDay"]) => {
-				performAction();
+				trackChange();
 				calendarActions.setStartDay(startDay);
 			},
 		},
@@ -112,19 +116,19 @@ export const useSettingsStore = () => {
 			setColorScheme: (
 				colorScheme: SettingsState["appearance"]["colorScheme"],
 			) => {
-				performAction();
+				trackChange();
 				appearanceActions.setColorScheme(colorScheme);
 			},
 			setPrimaryColor: (color: colorsType) => {
-				performAction();
+				trackChange();
 				appearanceActions.setPrimaryColor(color);
 			},
 			setSecondaryColor: (color: colorsType) => {
-				performAction();
+				trackChange();
 				appearanceActions.setSecondaryColor(color);
 			},
 			setAccentColor: (color: colorsType) => {
-				performAction();
+				trackChange();
 				appearanceActions.setAccentColor(color);
 			},
 		},
