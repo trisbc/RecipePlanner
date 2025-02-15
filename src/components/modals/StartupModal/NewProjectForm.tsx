@@ -51,7 +51,7 @@ export const NewProjectForm = () => {
 		}
 	}, [appearance.colorScheme, mantineTheme.colorScheme]);
 
-	const { isLargeScreen } = useBreakpoints();
+	const { isLargeScreen, isSmallScreen } = useBreakpoints();
 
 	const createButton = (
 		<Button
@@ -67,7 +67,7 @@ export const NewProjectForm = () => {
 					recipeBook: 1,
 					timeStamp: Date.now(),
 					settingsState: {
-						useDraggable: checkboxes.enableDnd,
+						useDraggable: !isSmallScreen && checkboxes.enableDnd,
 						appearance,
 						calendar: {
 							numDays: "seven-day",
@@ -113,12 +113,14 @@ export const NewProjectForm = () => {
 								}
 							/>
 						</Box>
-						<Switch
-							label="Enable Drag-and-Drop features"
-							checked={checkboxes.enableDnd}
-							name="enableDnd"
-							onChange={handleCheckboxChange}
-						/>
+						{!isSmallScreen && (
+							<Switch
+								label="Enable Drag-and-Drop features"
+								checked={checkboxes.enableDnd}
+								name="enableDnd"
+								onChange={handleCheckboxChange}
+							/>
+						)}
 						<Switch
 							label="Include sample recipes"
 							name="includeSamples"

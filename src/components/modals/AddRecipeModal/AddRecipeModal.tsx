@@ -1,21 +1,10 @@
-import {
-	Modal,
-	Tabs,
-	Group,
-	Text,
-	Box,
-	Title,
-	TextInput,
-	Button,
-	ButtonGroup,
-} from "@mantine/core";
+import { Modal, Group, Text, Box, TextInput, Button } from "@mantine/core";
 import { FC, useEffect, useMemo, useRef, useState } from "react";
 import { dayType } from "@/types";
 import classes from "./AddRecipeModal.module.css";
-import { RecipeCard, RecipeCardNoDragging } from "@/components/cards";
 import { RecipeCardCheckBox } from "@/components/cards/RecipeCard/RecipeCard";
 import { useCalendarStore, useRecipeStore } from "@/store";
-import { FiX, FiXCircle } from "react-icons/fi";
+import { FiPlus, FiX } from "react-icons/fi";
 
 const {
 	addRecipeModal,
@@ -79,9 +68,15 @@ export const AddRecipeModal: FC<AddRecipeModalProps> = ({
 						setSelectedRecipes([]);
 					}}
 				>
-					{selectedRecipes.length
-						? `Add ${selectedRecipes.length} recipe${selectedRecipes.length !== 1 ? "s" : ""}`
-						: "Close"}
+					{selectedRecipes.length ? (
+						<>
+							<FiPlus size="16" />
+							&ensp; Add {selectedRecipes.length} recipe
+							{selectedRecipes.length !== 1 && "s"}
+						</>
+					) : (
+						"Close"
+					)}
 				</Button>
 				{selectedRecipes.length && (
 					<Button
@@ -180,7 +175,9 @@ const ResultsBox: FC<ResultsBoxProps> = ({
 			{searchResults.length === 0 ? (
 				<Box p="lg" w="100%">
 					<Text ta="center" c="white">
-						No recipes match your search. Please try again.
+						{recipeKeys.length === 0
+							? "No recipes found. Add some recipes to your RecipeBook."
+							: "No recipes match your search. Please try again."}
 					</Text>
 				</Box>
 			) : (

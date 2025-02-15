@@ -58,10 +58,10 @@ export const Day: FC<DayProps> = ({ day, activeItem }) => {
 					<>
 						<Button
 							className={addButton}
-							leftSection={<FiPlus />}
 							onClick={() => setIsAddOpen(true)}
 						>
-							Add Recipe
+							<FiPlus size={16} />
+							&ensp;Add Recipe
 						</Button>
 						<AddRecipeModal
 							isOpen={isAddOpen}
