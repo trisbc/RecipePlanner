@@ -35,7 +35,7 @@ export const settingsStore = createStore<SettingsStore>()((set) => ({
 		startDay: "monday",
 	},
 	fileInfo: {
-		filename: "myRecipes.recipeBook",
+		filename: "",
 		timeStamp: 0,
 		recipeBook: 1,
 	},

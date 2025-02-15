@@ -1,8 +1,15 @@
 import { FC } from "react";
 import { DraggableAttributes, useDraggable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
-import { Checkbox, Group, Text, Title } from "@mantine/core";
-import { FiMove, FiEdit, FiTrash, FiMoreHorizontal } from "react-icons/fi";
+import { Box, Checkbox, Group, Text, Title } from "@mantine/core";
+import {
+	FiMove,
+	FiEdit,
+	FiTrash,
+	FiMoreHorizontal,
+	FiClock,
+	FiDollarSign,
+} from "react-icons/fi";
 import classes from "./RecipeCard.module.css";
 import { days, useCalendarStore } from "@/store/useCalendarStore";
 import { SyntheticListenerMap } from "@dnd-kit/core/dist/hooks/utilities";
@@ -14,10 +21,14 @@ import { useRecipeStore } from "@/store/useRecipeStore";
 const {
 	cardWrapper,
 	cardWrapperInvisible,
+	checkboxCardWrapper,
 	buttonStack,
 	iconButton,
 	dragHandle,
 	content,
+	cardCheckbox,
+	checkboxMetricsLabel,
+	checkBoxContent,
 } = classes;
 
 interface RecipeCardProps {
@@ -150,20 +161,65 @@ export const RecipeCard: FC<RecipeCardProps> = ({
 	);
 };
 
-export const RecipeCardCheckBox: FC = ({}) => {
-	return (
-		<div className={cardWrapper} style={{ height: "fit-content" }}>
-			<div className={content}>
-				<Group>
-					<Checkbox />
-					<div>
-						<Title order={3} fz="sm" lh="md" fw="normal">
-							Test Recipe
-						</Title>
+interface CheckboxCardProps {
+	id: string;
+	onClick: (id: string) => void;
+	selected: boolean;
+}
 
-						<Text fz="xs">test desc</Text>
-					</div>
-				</Group>
+export const RecipeCardCheckBox: FC<CheckboxCardProps> = ({
+	id,
+	onClick,
+	selected,
+}) => {
+	const { recipeStore } = useRecipeStore();
+	const { title, description, prepTime, cookTime } = recipeStore[id];
+	return (
+		<div className={`${cardWrapper} ${checkboxCardWrapper}`}>
+			<div className={checkBoxContent}>
+				<Checkbox
+					autoContrast
+					color="var(--primary-color-4)"
+					className={cardCheckbox}
+					checked={selected}
+					onChange={() => onClick(id)}
+					label={
+						<Group wrap="nowrap" gap="lg">
+							<Box>
+								<Title order={3} fz="sm" lh="md" fw="normal">
+									{title}
+								</Title>
+
+								<Text fz="xs">{description}</Text>
+							</Box>
+							<Box className={checkboxMetricsLabel}>
+								{prepTime ||
+									(cookTime && (
+										<Group wrap="nowrap">
+											<FiClock
+												color="var(--primary-color-4)"
+												size={16}
+											/>
+											<Box
+												className={checkboxMetricsLabel}
+											>
+												{(cookTime ?? 0) +
+													(prepTime ?? 0)}{" "}
+												min
+											</Box>
+										</Group>
+									))}
+
+								<Group wrap="nowrap">
+									<FiDollarSign color="green" size={16} />
+									<Box className={checkboxMetricsLabel}>
+										12.00
+									</Box>
+								</Group>
+							</Box>
+						</Group>
+					}
+				/>
 			</div>
 		</div>
 	);

@@ -112,7 +112,7 @@ export const LoadRecipeBook: FC<{ tabName: string }> = ({ tabName }) => {
 							<Button
 								variant="filled"
 								color="var(--primary-color-4)"
-								onClick={() => useFile}
+								onClick={() => useFile()}
 							>
 								Use File
 							</Button>

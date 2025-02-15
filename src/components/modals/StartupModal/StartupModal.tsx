@@ -3,12 +3,17 @@ import { useSaveContext } from "@/hooks";
 import { FiBookOpen, FiUpload } from "react-icons/fi";
 import { NewProjectForm } from "./NewProjectForm";
 import { LoadRecipeBook } from "../SaveModal/components";
+import { useSettingsStore } from "@/store";
 
 export const StartupModal = () => {
-	const { lastChangeTimeStamp } = useSaveContext();
+	const {
+		settingsStore: {
+			fileInfo: { filename },
+		},
+	} = useSettingsStore();
 	return (
 		<Modal
-			opened={!lastChangeTimeStamp}
+			opened={!filename}
 			onClose={() => {}}
 			withCloseButton={false}
 			size="80%"

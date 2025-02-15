@@ -58,3 +58,44 @@
 .full-width {
 	width: 100%;
 }
+
+.checkboxCardWrapper {
+	height: fit-content;
+	margin: 5px 0;
+	padding: 0px;
+}
+
+.cardCheckbox {
+	[class*="mantine-Checkbox-body"] {
+		align-items: center;
+		width: 100%;
+		padding-right: 16px;
+		input {
+			background-color: var(--mantine-color-white);
+		}
+		input:checked {
+			background-color: var(--primary-color-2);
+		}
+	}
+	[class*="mantine-Checkbox-labelWrapper"] {
+		padding: 5px 5px 5px 0px;
+		width: 100%;
+		user-select: none;
+	}
+	[class*="mantine-Checkbox-inner"] {
+		margin-left: 12px;
+	}
+}
+
+.checkboxMetricsLabel {
+	margin-left: auto;
+	text-align: right;
+	font-size: 12px;
+	white-space: nowrap;
+}
+
+.checkBoxContent {
+	overflow-x: hidden;
+	width: 100%;
+	hyphens: auto;
+}

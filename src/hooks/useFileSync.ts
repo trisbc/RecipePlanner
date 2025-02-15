@@ -29,6 +29,7 @@ export const useLoadFile = () => {
 
 	const resetFile = () => {
 		setUploadError(undefined);
+		setFileContent(undefined);
 	};
 
 	const readFile = (file: File | null) => {
@@ -74,10 +75,8 @@ export const useLoadFile = () => {
 	};
 
 	const useFile = (file?: RecipeBookFile) => {
-		const recipeFile = fileContent ?? file;
+		const recipeFile = file ?? fileContent;
 		if (!recipeFile) return;
-
-		console.log("recipeFile", recipeFile);
 
 		const {
 			calendarState,
