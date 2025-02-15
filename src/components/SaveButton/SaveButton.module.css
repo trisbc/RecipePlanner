@@ -1,0 +1,28 @@
+.saveButton {
+	margin-left: 24px;
+	padding: 0;
+	margin-right: 24px;
+	display: flex;
+	background-color: transparent;
+	width: fit-content;
+	&:hover {
+		background-color: transparent;
+	}
+	&:disabled {
+		background-color: transparent;
+	}
+}
+
+@media (max-width: $mantine-breakpoint-md) {
+	.saveButton {
+		margin-right: 0px;
+	}
+}
+
+@media (max-width: $mantine-breakpoint-sm) {
+	.save {
+		padding-right: 0px;
+		padding-left: 0;
+		margin-left: auto;
+	}
+}

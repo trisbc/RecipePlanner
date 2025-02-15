@@ -1,0 +1,37 @@
+.infoList {
+	display: table;
+	width: 100%;
+}
+
+.infoListRow {
+	display: table-row;
+	border-bottom: 1px solid rgb(255, 0, 0);
+	dt {
+		display: table-cell;
+		font-weight: bold;
+		padding-bottom: 10px;
+		&::after {
+			content: ":";
+		}
+	}
+	dd {
+		margin-left: auto;
+		display: table-cell;
+		text-align: right;
+	}
+}
+
+.saveLink {
+	padding: 0 18px;
+	text-decoration: none;
+	font-weight: 600;
+	font-size: 14px;
+	line-height: 36px;
+	background-color: var(--primary-color-4);
+	color: white;
+	border-radius: 4px;
+	&:hover {
+		text-decoration: none;
+		background-color: color-mix(in srgb, var(--primary-color-4), black 10%);
+	}
+}

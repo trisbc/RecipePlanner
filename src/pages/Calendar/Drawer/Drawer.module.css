@@ -1,0 +1,55 @@
+.drawerWrapper {
+	position: absolute;
+	bottom: 50px;
+	left: 0;
+	width: 100%;
+	background-color: var(--secondary-color-4);
+	width: 100%;
+	border-radius: 15px 15px 0 0;
+	padding: 5px 15px 0 15px;
+	min-height: 10px;
+	box-shadow: 0px -2px 3px 4px rgb(0 0 0 / 20%);
+}
+
+.drawerHandle {
+	box-shadow: 0px -2px 3px 4px rgb(0 0 0 / 20%);
+	left: 0;
+	right: 0;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 15px 15px 0 0;
+	padding-bottom: 20px;
+	width: 10%;
+	position: absolute;
+	top: -20px;
+	border: none;
+	height: 30px;
+	background-color: var(--secondary-color-4);
+
+	&:hover {
+		filter: brightness(130%);
+	}
+
+	svg {
+		stroke: var(--mantine-color-white-2);
+	}
+}
+
+.recipeContainer {
+	padding: 15px;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	column-gap: 41px;
+	row-gap: 5px;
+	margin: 5px auto 0;
+	max-height: 20vh;
+	overflow-y: scroll;
+	z-index: -1;
+	background-color: rgba(0, 0, 0, 0.3);
+	box-shadow: inset 2px 3px 3px 4px rgb(0 0 0 / 20%);
+}
+
+.noScroll {
+	overflow-y: hidden;
+}

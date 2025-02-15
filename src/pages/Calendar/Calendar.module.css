@@ -1,0 +1,11 @@
+.daysControl {
+	margin: -40px 10px 10px auto;
+	width: fit-content;
+	background-color: light-dark(
+		var(--mantine-color-white-1),
+		var(--mantine-color-dark-6)
+	);
+	box-shadow: 0px 0px 3px 4px rgb(0 0 0 / 20%);
+	padding: 5px 20px;
+	border-radius: 10px;
+}

@@ -1,0 +1,23 @@
+.wrapper {
+	letter-spacing: rem(-2px);
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	background-color: var(--primary-color-4);
+	width: 100%;
+	height: fit-content;
+}
+
+.yes {
+	background-color: green;
+}
+
+.no {
+	background-color: red;
+}
+
+.switchStyles {
+	[class*="mantine-Switch-track"] {
+		margin-left: auto;
+	}
+}
