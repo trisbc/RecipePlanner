@@ -4,6 +4,7 @@ import { FiBookOpen, FiSave, FiSettings, FiXCircle } from "react-icons/fi";
 import { LoadRecipeBook } from "./components/LoadRecipeBook";
 import { SaveRecipeBook } from "./components";
 import { SaveButton } from "@/components/SaveButton";
+import { IconButton } from "@/components/buttons/IconButtons/IconButton";
 
 export const SaveModal = () => {
 	const {
@@ -29,19 +30,27 @@ export const SaveModal = () => {
 						Manage your RecipeBook
 					</Title>
 					{!isPendingDownload && (
-						<Button
-							variant="transparent"
-							w="fit-content"
-							p="0"
+						<IconButton
+							icon={
+								<FiXCircle
+									size="24"
+									color="light-dark(black, white)"
+								/>
+							}
+							ariaLabel="Close"
 							ml="auto"
-							c="black"
 							onClick={() => setSaveModalOpen(false)}
-						>
-							<FiXCircle
-								size="24"
-								color="light-dark(black, white)"
-							/>
-						</Button>
+						/>
+						// <Button
+						// 	variant="transparent"
+						// 	w="fit-content"
+						// 	p="0"
+
+						// 	c="black"
+						// 	onClick={}
+						// >
+
+						// </Button>
 					)}
 				</Group>
 				<Box mb="12px">

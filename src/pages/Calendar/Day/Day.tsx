@@ -65,7 +65,7 @@ export const Day: FC<DayProps> = ({ day, activeItem }) => {
 						/>
 						<AddRecipeModal
 							isOpen={isAddOpen}
-							onClose={() => setIsAddOpen(false)}
+							onClose={setIsAddOpen}
 							day={day as dayType}
 						/>
 					</>

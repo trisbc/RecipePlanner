@@ -10,6 +10,7 @@ import {
 	useSettingsStore,
 } from "@/store";
 import { useSaveContext } from "@/hooks";
+import { ThemeButton } from "@/components/buttons/ThemeButton";
 
 const { infoList, infoListRow, saveLink } = classes;
 
@@ -90,10 +91,10 @@ export const SaveRecipeBook: FC<{ tabName: string }> = ({ tabName }) => {
 					</div>
 				</dl>
 				{/* TODO: replace this with its own modal */}
-				{isPendingDownload ? (
-					<Button
-						variant="outline"
-						color="var(--accent-color-4)"
+				{isPendingDownload && (
+					<ThemeButton
+						text="Confirm file downloaded"
+						variant="primary-outline"
 						onClick={() => {
 							setFileInfo({
 								...fileInfo,
@@ -102,19 +103,16 @@ export const SaveRecipeBook: FC<{ tabName: string }> = ({ tabName }) => {
 							setIsPendingDownload(false);
 							setSaveModalOpen(false);
 						}}
-					>
-						Confirm file downloaded
-					</Button>
-				) : (
-					<Anchor
-						href={jsonString}
-						download={currentFile.filename}
-						className={saveLink}
-						onClick={() => setIsPendingDownload(true)}
-					>
-						Save file
-					</Anchor>
+					/>
 				)}
+				<Anchor
+					href={jsonString}
+					download={currentFile.filename}
+					className={saveLink}
+					onClick={() => setIsPendingDownload(true)}
+				>
+					{isPendingDownload ? "Download again" : "Save file"}
+				</Anchor>
 			</Group>
 		</TabsPanel>
 	);

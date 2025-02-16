@@ -28,6 +28,7 @@
 		&::placeholder {
 			font-weight: bold;
 			font-style: italic;
+			color: var(--mantine-color-gray-5);
 		}
 	}
 }

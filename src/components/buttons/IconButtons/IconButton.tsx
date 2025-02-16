@@ -7,7 +7,8 @@ export const IconButton: FC<IconButtonProps> = ({
 	onClick,
 	ariaLabel,
 	icon,
-	variant,
+	variant = "icon-only",
+	...props
 }) => {
 	const variantClass = classes[variant];
 
@@ -16,6 +17,7 @@ export const IconButton: FC<IconButtonProps> = ({
 			aria-label={ariaLabel}
 			onClick={onClick}
 			className={variantClass}
+			{...props}
 		>
 			{icon}
 		</Button>

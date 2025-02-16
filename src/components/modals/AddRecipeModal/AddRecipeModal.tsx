@@ -1,4 +1,12 @@
-import { Modal, Group, Text, Box, TextInput, Button } from "@mantine/core";
+import {
+	Modal,
+	Group,
+	Text,
+	Box,
+	TextInput,
+	Button,
+	useModalStack,
+} from "@mantine/core";
 import { FC, useEffect, useMemo, useRef, useState } from "react";
 import { dayType } from "@/types";
 import classes from "./AddRecipeModal.module.css";
@@ -12,8 +20,8 @@ const { addRecipeModal, recipeContainer, clearFieldButton } = classes;
 
 interface AddRecipeModalProps {
 	isOpen: boolean;
-	onClose: () => void;
-	day: dayType;
+	onClose: (isOpen: false) => void;
+	day: dayType | "drawer";
 }
 
 export const AddRecipeModal: FC<AddRecipeModalProps> = ({
@@ -23,7 +31,6 @@ export const AddRecipeModal: FC<AddRecipeModalProps> = ({
 }) => {
 	const [filterString, setFilterString] = useState("");
 	const [selectedRecipes, setSelectedRecipes] = useState<string[]>([]);
-
 	const { addRecipes } = useCalendarStore();
 
 	const selectRecipe = (id: string) => {
@@ -38,7 +45,7 @@ export const AddRecipeModal: FC<AddRecipeModalProps> = ({
 
 	const onAdd = () => {
 		if (selectedRecipes.length) addRecipes(day, selectedRecipes);
-		onClose();
+		onClose(false);
 		setFilterString("");
 		setSelectedRecipes([]);
 	};
@@ -46,7 +53,7 @@ export const AddRecipeModal: FC<AddRecipeModalProps> = ({
 	return (
 		<Modal
 			opened={isOpen}
-			onClose={onClose}
+			onClose={() => onClose(false)}
 			withCloseButton={false}
 			radius="15px"
 			size="lg"
