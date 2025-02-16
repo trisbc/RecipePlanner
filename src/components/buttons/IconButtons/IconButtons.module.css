@@ -1,0 +1,42 @@
+.icon-only {
+	padding: 1px;
+	border-radius: 100px;
+	background-color: transparent;
+	height: fit-content;
+}
+
+.gray {
+	composes: icon-only;
+	background-color: var(--mantine-color-gray-5);
+
+	&:hover {
+		background-color: var(--mantine-color-gray-6);
+	}
+}
+
+.primary {
+	composes: icon-only;
+	background-color: var(--primary-color-4);
+
+	&:hover {
+		background-color: var(--primary-color-2);
+	}
+}
+
+.secondary {
+	composes: icon-only;
+	background-color: var(--secondary-color-4);
+
+	&:hover {
+		background-color: var(--secondary-color-2);
+	}
+}
+
+.accent {
+	composes: icon-only;
+	background-color: var(--accent-color-4);
+
+	&:hover {
+		background-color: var(--accent-color-2);
+	}
+}

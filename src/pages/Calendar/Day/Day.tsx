@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import { Button, Title } from "@mantine/core";
+import { Title } from "@mantine/core";
 import { BottomSlot, InbetweenSlot } from "./components";
 import { RecipeType } from "@/types/recipeType";
 import { days, useCalendarStore } from "@/store/useCalendarStore";
@@ -11,6 +11,7 @@ import { useBreakpoints } from "@/hooks/useBreakpoints";
 import { FiPlus } from "react-icons/fi";
 import { useSettingsStore } from "@/store/useSettingsStore";
 import { AddRecipeModal } from "@/components/modals/AddRecipeModal";
+import { ThemeButton } from "@/components/buttons/ThemeButton";
 
 interface DayProps {
 	day: days;
@@ -56,13 +57,12 @@ export const Day: FC<DayProps> = ({ day, activeItem }) => {
 				)}
 				{disableDrag ? (
 					<>
-						<Button
-							className={addButton}
+						<ThemeButton
 							onClick={() => setIsAddOpen(true)}
-						>
-							<FiPlus size={16} />
-							&ensp;Add Recipe
-						</Button>
+							variant="text-only"
+							icon={<FiPlus size={16} />}
+							text="AddRecipe"
+						/>
 						<AddRecipeModal
 							isOpen={isAddOpen}
 							onClose={() => setIsAddOpen(false)}

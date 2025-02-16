@@ -5,14 +5,10 @@ import classes from "./AddRecipeModal.module.css";
 import { RecipeCardCheckBox } from "@/components/cards/RecipeCard/RecipeCard";
 import { useCalendarStore, useRecipeStore } from "@/store";
 import { FiPlus, FiX } from "react-icons/fi";
+import { ThemeButton } from "@/components/buttons/ThemeButton";
+import { ClearFieldButton } from "@/components/buttons/IconButtons/ClearFieldButton";
 
-const {
-	addRecipeModal,
-	recipeContainer,
-	clearFieldButton,
-	addButton,
-	clearButton,
-} = classes;
+const { addRecipeModal, recipeContainer, clearFieldButton } = classes;
 
 interface AddRecipeModalProps {
 	isOpen: boolean;
@@ -40,6 +36,13 @@ export const AddRecipeModal: FC<AddRecipeModalProps> = ({
 		}
 	};
 
+	const onAdd = () => {
+		if (selectedRecipes.length) addRecipes(day, selectedRecipes);
+		onClose();
+		setFilterString("");
+		setSelectedRecipes([]);
+	};
+
 	return (
 		<Modal
 			opened={isOpen}
@@ -59,32 +62,22 @@ export const AddRecipeModal: FC<AddRecipeModalProps> = ({
 				selectRecipe={selectRecipe}
 			/>
 			<Group mt="sm">
-				<Button
-					className={addButton}
-					onClick={() => {
-						addRecipes(day, selectedRecipes);
-						onClose();
-						setFilterString("");
-						setSelectedRecipes([]);
-					}}
-				>
-					{selectedRecipes.length ? (
-						<>
-							<FiPlus size="16" />
-							&ensp; Add {selectedRecipes.length} recipe
-							{selectedRecipes.length !== 1 && "s"}
-						</>
-					) : (
-						"Close"
-					)}
-				</Button>
-				{selectedRecipes.length && (
-					<Button
-						className={clearButton}
+				<ThemeButton
+					variant="primary"
+					onClick={onAdd}
+					icon={!!selectedRecipes.length && <FiPlus size="16" />}
+					text={
+						selectedRecipes.length
+							? `Add ${selectedRecipes.length} recipe${selectedRecipes.length !== 1 ? "s" : ""}`
+							: "Close"
+					}
+				/>
+				{!!selectedRecipes.length && (
+					<ThemeButton
+						variant="primary-outline"
 						onClick={() => setSelectedRecipes([])}
-					>
-						Clear selection
-					</Button>
+						text="Clear selection"
+					/>
 				)}
 			</Group>
 		</Modal>
@@ -128,15 +121,7 @@ const SearchBox: FC<SearchBoxProps> = ({ isOpen, onFilter }) => {
 			ref={inputRef}
 			value={searchBy}
 			onChange={(event) => setSearchBy(event.currentTarget.value)}
-			rightSection={
-				<Button
-					className={clearFieldButton}
-					aria-label="Clear search"
-					onClick={clearSearch}
-				>
-					<FiX size="16" color="white" />
-				</Button>
-			}
+			rightSection={<ClearFieldButton onClick={clearSearch} />}
 		/>
 	);
 };

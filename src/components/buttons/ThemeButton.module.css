@@ -1,0 +1,63 @@
+.primary {
+	background-color: var(--primary-color-4);
+
+	&:hover {
+		background-color: var(--primary-color-2);
+	}
+}
+
+.primary-outline {
+	border: 2px solid var(--primary-color-4);
+	color: var(--primary-color-4);
+	background-color: var(--mantine-color-white-2);
+
+	&:hover {
+		color: var(--primary-color-4);
+		background-color: var(--mantine-color-white-0);
+	}
+}
+
+.secondary {
+	background-color: var(--secondary-color-4);
+
+	&:hover {
+		background-color: var(--secondary-color-2);
+	}
+}
+
+.secondary-outline {
+	border: 2px solid var(--secondary-color-4);
+	color: var(--secondary-color-4);
+	background-color: var(--mantine-color-white-2);
+
+	&:hover {
+		color: var(--secondary-color-4);
+		background-color: var(--mantine-color-white-0);
+	}
+}
+
+.accent {
+	background-color: var(--accent-color-4);
+
+	&:hover {
+		background-color: var(--accent-color-2);
+	}
+}
+
+.accent-outline {
+	border: 2px solid var(--accent-color-4);
+	color: var(--accent-color-4);
+	background-color: var(--mantine-color-white-2);
+
+	&:hover {
+		color: var(--accent-color-4);
+		background-color: var(--mantine-color-white-0);
+	}
+}
+
+.text-only {
+	background-color: transparent !important;
+	color: var(--mantine-color-white-0);
+	margin: 10px 0 50px 0;
+	height: 36px;
+}
