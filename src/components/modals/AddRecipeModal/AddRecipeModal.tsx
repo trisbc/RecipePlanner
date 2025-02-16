@@ -1,12 +1,4 @@
-import {
-	Modal,
-	Group,
-	Text,
-	Box,
-	TextInput,
-	Button,
-	useModalStack,
-} from "@mantine/core";
+import { Modal, Group, Text, Box, TextInput, Button } from "@mantine/core";
 import { FC, useEffect, useMemo, useRef, useState } from "react";
 import { dayType } from "@/types";
 import classes from "./AddRecipeModal.module.css";
