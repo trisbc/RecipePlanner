@@ -58,6 +58,5 @@
 .text-only {
 	background-color: transparent !important;
 	color: var(--mantine-color-white-0);
-	margin: 10px 0 50px 0;
 	height: 36px;
 }

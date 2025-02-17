@@ -67,9 +67,5 @@
 }
 
 .addButton {
-	background-color: transparent !important;
-	color: white;
 	margin: 10px 0 50px 0;
-	height: 36px;
-	padding-right: 10%;
 }

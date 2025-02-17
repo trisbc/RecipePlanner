@@ -9,7 +9,7 @@ interface ThemeButtonProps extends Omit<ButtonProps, "variant" | "children"> {
 		| "secondary"
 		| "secondary-outline"
 		| "accent"
-		| "primary-outline"
+		| "accent-outline"
 		| "text-only";
 	text: string;
 	icon?: ReactElement | false;

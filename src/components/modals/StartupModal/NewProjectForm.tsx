@@ -65,7 +65,7 @@ export const NewProjectForm = () => {
 						: blankRecipeBook),
 					filename: `${projectName}.recipeBook`,
 					recipeBook: 1,
-					timeStamp: Date.now(),
+					timeStamp: 0,
 					settingsState: {
 						useDraggable: !isSmallScreen && checkboxes.enableDnd,
 						appearance,
@@ -77,7 +77,7 @@ export const NewProjectForm = () => {
 				})
 			}
 		>
-			Create project
+			Create recipe book
 		</Button>
 	);
 

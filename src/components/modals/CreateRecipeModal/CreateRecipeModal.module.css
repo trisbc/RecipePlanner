@@ -1,0 +1,37 @@
+.createRecipeModal {
+	--modal-y-offset: 5% !important;
+	[class*="mantine-Modal-root"] {
+		padding: 0;
+	}
+
+	[class*="mantine-Modal-content"] {
+		background-color: var(--mantine-color-white-2);
+		border: solid 5px var(--accent-color-4);
+		border-radius: 10px;
+		box-shadow: 0px -2px 3px 4px rgb(0 0 0 / 20%);
+		height: fit-content;
+	}
+
+	[class*="mantine-Input-wrapper"] {
+		border-radius: 15px;
+		width: 42%;
+		padding: 0 15px;
+		margin-bottom: 10px;
+		background-color: var(--mantine-color-white-2);
+	}
+
+	[class*="mantine-TextInput-input"] {
+		background-color: var(--secondary-color-4);
+		border: none;
+		padding: 0;
+		/* box-shadow: inset 2px 3px 3px 4px rgb(0 0 0 / 20%); */
+		background-color: var(--mantine-color-white-2);
+		color: black;
+
+		&::placeholder {
+			font-weight: bold;
+			font-style: italic;
+			color: var(--mantine-color-gray-5);
+		}
+	}
+}

@@ -68,7 +68,7 @@ const Settings: FC<{ className?: string }> = ({ className }) => {
 									withArrow
 									arrowPosition="side"
 									position="bottom-end"
-									label="Enabling drag-and-drop allows moving and reordering cards. May not work well on touch-screen devices."
+									label="Enabling drag-and-drop allows moving and reordering cards by dragging them with your mouse. May not work well on touch-screen devices."
 								>
 									<Box display="flex">
 										Enable drag-and-drop features &nbsp;

@@ -7,6 +7,7 @@ import { useCalendarStore, useRecipeStore } from "@/store";
 import { FiPlus, FiX } from "react-icons/fi";
 import { ThemeButton } from "@/components/buttons/ThemeButton";
 import { ClearFieldButton } from "@/components/buttons/IconButtons/ClearFieldButton";
+import { CreateRecipeModal } from "../CreateRecipeModal";
 
 const { addRecipeModal, recipeContainer, clearFieldButton } = classes;
 
@@ -24,6 +25,7 @@ export const AddRecipeModal: FC<AddRecipeModalProps> = ({
 	const [filterString, setFilterString] = useState("");
 	const [selectedRecipes, setSelectedRecipes] = useState<string[]>([]);
 	const { addRecipes } = useCalendarStore();
+	const [isCreateOpen, setIsCreateOpen] = useState(false);
 
 	const selectRecipe = (id: string) => {
 		if (selectedRecipes.includes(id)) {
@@ -47,18 +49,30 @@ export const AddRecipeModal: FC<AddRecipeModalProps> = ({
 			opened={isOpen}
 			onClose={() => onClose(false)}
 			withCloseButton={false}
-			radius="15px"
-			size="lg"
-			padding={0}
+			size="xl"
+			// yOffset="10%"
 			className={addRecipeModal}
-			bg="var(--secondary-color-4)"
-			yOffset="10%"
 		>
-			<SearchBox isOpen={isOpen} onFilter={setFilterString} />
+			<Group wrap="nowrap">
+				<SearchBox isOpen={isOpen} onFilter={setFilterString} />
+				<Box ml="auto" pb="xs">
+					<ThemeButton
+						onClick={() => setIsCreateOpen(true)}
+						variant="text-only"
+						icon={<FiPlus size={16} />}
+						text="Create new recipe"
+					/>
+					<CreateRecipeModal
+						isOpen={isCreateOpen}
+						onClose={setIsCreateOpen}
+					/>
+				</Box>
+			</Group>
 			<ResultsBox
 				filterString={filterString}
 				selectedRecipes={selectedRecipes}
 				selectRecipe={selectRecipe}
+				isDrawer={day === "drawer"}
 			/>
 			<Group mt="sm">
 				<ThemeButton
@@ -92,11 +106,11 @@ const SearchBox: FC<SearchBoxProps> = ({ isOpen, onFilter }) => {
 	const [searchBy, setSearchBy] = useState("");
 	const inputRef = useRef<HTMLInputElement>(null);
 
-	useEffect(() => {
-		if (isOpen && inputRef.current) {
-			inputRef.current.focus();
-		}
-	}, [isOpen]);
+	// useEffect(() => {
+	// 	if (isOpen && inputRef.current) {
+	// 		inputRef.current.focus();
+	// 	}
+	// }, [isOpen]);
 
 	useEffect(() => {
 		const handler = setTimeout(() => {
@@ -115,6 +129,7 @@ const SearchBox: FC<SearchBoxProps> = ({ isOpen, onFilter }) => {
 
 	return (
 		<TextInput
+			data-autofocus
 			aria-label="Search for recipe by Title or Description"
 			placeholder="Search by title or description"
 			ref={inputRef}
@@ -129,18 +144,23 @@ interface ResultsBoxProps {
 	filterString: string;
 	selectedRecipes: string[];
 	selectRecipe: (id: string) => void;
+	isDrawer: boolean;
 }
 
 const ResultsBox: FC<ResultsBoxProps> = ({
 	filterString,
 	selectedRecipes,
 	selectRecipe,
+	isDrawer,
 }) => {
 	const { recipeStore } = useRecipeStore();
+	const {
+		calendarStore: { drawer },
+	} = useCalendarStore();
 	const recipeKeys = Object.keys(recipeStore);
 
 	const searchResults = useMemo(() => {
-		return recipeKeys.filter((key) => {
+		const initialFilter = recipeKeys.filter((key) => {
 			const recipe = recipeStore[key];
 			return (
 				recipe.title
@@ -152,7 +172,10 @@ const ResultsBox: FC<ResultsBoxProps> = ({
 						.includes(filterString.toLowerCase()))
 			);
 		});
-	}, [filterString, recipeKeys]);
+		return !isDrawer
+			? initialFilter
+			: initialFilter.filter((recipe) => !drawer.includes(recipe));
+	}, [filterString, recipeKeys, isDrawer]);
 
 	return (
 		<Box className={recipeContainer}>

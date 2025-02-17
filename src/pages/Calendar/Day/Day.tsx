@@ -58,10 +58,11 @@ export const Day: FC<DayProps> = ({ day, activeItem }) => {
 				{disableDrag ? (
 					<>
 						<ThemeButton
+							className={addButton}
 							onClick={() => setIsAddOpen(true)}
 							variant="text-only"
 							icon={<FiPlus size={16} />}
-							text="AddRecipe"
+							text="Add recipe"
 						/>
 						<AddRecipeModal
 							isOpen={isAddOpen}

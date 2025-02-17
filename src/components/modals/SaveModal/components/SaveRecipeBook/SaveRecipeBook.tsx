@@ -66,7 +66,7 @@ export const SaveRecipeBook: FC<{ tabName: string }> = ({ tabName }) => {
 						<dd>
 							{fileTimeStamp
 								? new Date(fileTimeStamp).toLocaleString()
-								: "unknown"}
+								: "never"}
 						</dd>
 					</div>
 					<div className={infoListRow}>
@@ -74,7 +74,7 @@ export const SaveRecipeBook: FC<{ tabName: string }> = ({ tabName }) => {
 						<dd>
 							{lastChangeTimeStamp
 								? new Date(lastChangeTimeStamp).toLocaleString()
-								: "unknown"}
+								: "never"}
 						</dd>
 					</div>
 					<div className={infoListRow}>

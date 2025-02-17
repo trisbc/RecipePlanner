@@ -63,7 +63,6 @@ export const useCalendarStore = () => {
 	};
 
 	const deleteRecipe = (day: days, index: number) => {
-		if (day === "drawer") return;
 		performAction();
 		const recipes = store[day] as DayState;
 		setDay(day, recipes.toSpliced(index, 1));
