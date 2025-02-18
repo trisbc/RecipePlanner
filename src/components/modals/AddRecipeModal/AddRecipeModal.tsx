@@ -46,8 +46,11 @@ export const AddRecipeModal: FC<AddRecipeModalProps> = ({
 
 	return (
 		<Modal
+			keepMounted={false}
 			opened={isOpen}
-			onClose={() => onClose(false)}
+			onClose={() => {
+				if (!isCreateOpen) onClose(false);
+			}}
 			withCloseButton={false}
 			size="xl"
 			// yOffset="10%"
@@ -65,6 +68,11 @@ export const AddRecipeModal: FC<AddRecipeModalProps> = ({
 					<CreateRecipeModal
 						isOpen={isCreateOpen}
 						onClose={setIsCreateOpen}
+						onAddRecipe={(recipeKey) => {
+							setSelectedRecipes((prev) => [...prev, recipeKey]);
+							setIsCreateOpen(false);
+						}}
+						isEditing={false}
 					/>
 				</Box>
 			</Group>

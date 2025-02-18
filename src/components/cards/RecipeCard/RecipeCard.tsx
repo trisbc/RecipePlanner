@@ -17,6 +17,7 @@ import { IDType } from "@/pages/Calendar/util";
 import { useBreakpoints } from "@/hooks/useBreakpoints";
 import { useSettingsStore } from "@/store/useSettingsStore";
 import { useRecipeStore } from "@/store/useRecipeStore";
+import { formatTime } from "@/util/parseTime";
 
 const {
 	cardWrapper,
@@ -193,22 +194,20 @@ export const RecipeCardCheckBox: FC<CheckboxCardProps> = ({
 								<Text fz="xs">{description}</Text>
 							</Box>
 							<Box className={checkboxMetricsLabel}>
-								{prepTime ||
-									(cookTime && (
-										<Group wrap="nowrap">
-											<FiClock
-												color="var(--primary-color-4)"
-												size={16}
-											/>
-											<Box
-												className={checkboxMetricsLabel}
-											>
-												{(cookTime ?? 0) +
-													(prepTime ?? 0)}{" "}
-												min
-											</Box>
-										</Group>
-									))}
+								{(!!prepTime || !!cookTime) && (
+									<Group wrap="nowrap">
+										<FiClock
+											color="var(--primary-color-4)"
+											size={16}
+										/>
+										<Box className={checkboxMetricsLabel}>
+											{formatTime(
+												(cookTime ?? 0) +
+													(prepTime ?? 0),
+											)}
+										</Box>
+									</Group>
+								)}
 
 								<Group wrap="nowrap">
 									<FiDollarSign color="green" size={16} />

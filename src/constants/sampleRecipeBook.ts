@@ -45,7 +45,62 @@ export const sampleRecipeBook: Omit<
 			"clamChowder",
 		],
 	},
-	ingredientState: {},
+	ingredientState: {
+		flour: {
+			item: "Flour",
+			costPerUnit: { mg: 0.02, ml: 0.01 },
+			category: "Baking",
+		},
+		sugar: {
+			item: "Sugar",
+			costPerUnit: { mg: 0.03, ml: 0.015 },
+			category: "Baking",
+		},
+		milk: {
+			item: "Milk",
+			costPerUnit: { ml: 0.05 },
+			category: "Dairy",
+		},
+		butter: {
+			item: "Butter",
+			costPerUnit: { mg: 0.1 },
+			category: "Dairy",
+		},
+		eggs: {
+			item: "Eggs",
+			category: "Poultry",
+		},
+		honey: {
+			item: "Honey",
+			costPerUnit: { ml: 0.08 },
+			category: "Sweeteners",
+		},
+		yeast: {
+			item: "Yeast",
+			costPerUnit: { mg: 0.05 },
+			category: "Baking",
+		},
+		salt: {
+			item: "Salt",
+			costPerUnit: { mg: 0.01 },
+			category: "Spices",
+		},
+		oliveOil: {
+			item: "Olive Oil",
+			costPerUnit: { ml: 0.12 },
+			category: "Oils",
+		},
+		vanillaExtract: {
+			item: "Vanilla Extract",
+			costPerUnit: { ml: 0.2 },
+			category: "Baking",
+		},
+		cinnamon: {
+			item: "Cinnamon",
+			costPerUnit: { mg: 0.04 },
+			category: "Spices",
+		},
+	},
 	recipeState: {
 		potatoSoup: {
 			title: "Potato Soup",

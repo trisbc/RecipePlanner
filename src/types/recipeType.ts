@@ -1,18 +1,21 @@
+export type weightUnits = "mg" | "g" | "kg" | "oz" | "lb";
+export type volumeUnits = "ml" | "l" | "cup" | "pint" | "quart" | "gallon";
+export type units = weightUnits | volumeUnits;
 
-export type units = 'mg' | 'g' | 'kg' | 'oz' | 'lb' | 'ml' | 'l' | 'cup' | 'pint' | 'quart' | 'gallon';
+type minUnits = "ml" | "mg";
 export interface IngredientType {
-    item: string;
-    unit?: units;
-    costPerUnit?: Record<units, number>;
+	item: string;
+	costPerUnit?: Partial<Record<minUnits, number>>;
+	category?: string;
 }
 
 export interface RecipeType {
-    title: string;
-    description?: string; 
-    /** Time to cook in seconds */
-    cookTime?: number;
-    /** Time to prep in seconds */
-    prepTime?: number;
-    /** List of ingredients */
-    ingredients?: {quantity: number, ingredientID: string, unit: units}[]
+	title: string;
+	description?: string;
+	/** Time to cook in seconds */
+	cookTime?: number;
+	/** Time to prep in seconds */
+	prepTime?: number;
+	/** List of ingredients */
+	ingredients?: { quantity?: number; ingredientID: string; unit?: units }[];
 }

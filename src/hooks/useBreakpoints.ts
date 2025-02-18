@@ -10,9 +10,6 @@ export const useBreakpoints = () => {
 	const isExtraLargeScreen = useMediaQuery(
 		`(min-width: ${theme.breakpoints.lg})`,
 	);
-	console.log({
-		isLargeScreen,
-		isExtraLargeScreen,
-	});
+
 	return { isSmallScreen, isMediumScreen, isLargeScreen, isExtraLargeScreen };
 };
