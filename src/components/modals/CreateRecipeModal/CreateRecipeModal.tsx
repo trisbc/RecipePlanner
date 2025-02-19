@@ -270,13 +270,15 @@ const IngredientStack: FC<IngredientStackProps> = ({
 				accumulator[group] = [
 					...currentGroup,
 					{ label: item, value: key },
-				];
+				].sort((a, b) => {
+					if (a.value === "create_new") return 1;
+					else if (b.value === "create_new") return -1;
+					else return a.label.localeCompare(b.label);
+				});
 				return accumulator;
 			},
 			initialGroupedItems,
 		);
-
-	console.log(groupedItems);
 
 	return (
 		<Stack gap="8px">

@@ -1,4 +1,11 @@
-import { Modal, Group, Stack, TextInput, Select } from "@mantine/core";
+import {
+	Modal,
+	Group,
+	Stack,
+	TextInput,
+	Select,
+	Autocomplete,
+} from "@mantine/core";
 import { FC, FocusEvent, useState } from "react";
 import classes from "./IngredientModal.module.css";
 import { useIngredientStore } from "@/store";
@@ -46,6 +53,7 @@ export const IngredientModal: FC<CreateRecipeModalProps> = ({
 	const hasChanges = true;
 	const { addIngredient, ingredientStore } = useIngredientStore();
 	const [ingredientName, setIngredientName] = useState("");
+	const [category, setCategory] = useState("");
 	const [nameError, setNameError] = useState("");
 	const [costs, setCosts] = useState<costState>(blankCosts);
 	const setCostOpt = (
@@ -97,11 +105,16 @@ export const IngredientModal: FC<CreateRecipeModalProps> = ({
 
 		const ingredient: IngredientType = {
 			item: ingredientName,
+			category: category ? category : undefined,
 		};
 
 		addIngredient(ingredientKey, ingredient);
 		onAddIngredient(ingredientKey);
 	};
+
+	const categoryArray = Object.values(ingredientStore)
+		.filter(({ category }) => !!category)
+		.map(({ category }) => category as string);
 
 	return (
 		<Modal
@@ -116,13 +129,22 @@ export const IngredientModal: FC<CreateRecipeModalProps> = ({
 			<Stack gap="sm">
 				<TextInput
 					label="Ingredient"
-					w="200px"
+					w="220px"
 					value={ingredientName}
 					onChange={(e) => {
 						setIngredientName(e.target.value);
 					}}
 					onBlur={validateForm}
 					error={nameError}
+				/>
+				<Autocomplete
+					label="Category"
+					w="170px"
+					value={category}
+					onChange={(e) => {
+						setCategory(e);
+					}}
+					data={[...new Set(categoryArray)]}
 				/>
 				Cost by weight
 				<Group>
@@ -135,7 +157,7 @@ export const IngredientModal: FC<CreateRecipeModalProps> = ({
 						onChange={(e) =>
 							setCostOpt("weight", "cost", e.target.value)
 						}
-						onBlur={(e) => handleAmountBlur("volume", "cost", e)}
+						onBlur={(e) => handleAmountBlur("weight", "cost", e)}
 						maxLength={8}
 					/>
 					<Select
