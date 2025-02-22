@@ -94,6 +94,7 @@ export const IngredientModal: FC<CreateRecipeModalProps> = ({
 
 	const clearForm = () => {
 		setIngredientName("");
+		setCategory("");
 		setNameError("");
 		setCosts(blankCosts);
 	};
@@ -110,6 +111,7 @@ export const IngredientModal: FC<CreateRecipeModalProps> = ({
 
 		addIngredient(ingredientKey, ingredient);
 		onAddIngredient(ingredientKey);
+		clearForm();
 	};
 
 	const categoryArray = Object.values(ingredientStore)
@@ -119,10 +121,13 @@ export const IngredientModal: FC<CreateRecipeModalProps> = ({
 	return (
 		<Modal
 			opened={isOpen}
-			onClose={() => onClose(false)}
+			onClose={() => {
+				onClose(false);
+				clearForm();
+			}}
 			withCloseButton={false}
 			yOffset="10%"
-			size="lg"
+			size="sm"
 			className={ingredientModal}
 			keepMounted={false}
 		>
@@ -203,7 +208,7 @@ export const IngredientModal: FC<CreateRecipeModalProps> = ({
 						variant="accent"
 						text={
 							hasChanges
-								? `${isEditing ? "Save" : "Create"} recipe`
+								? `${isEditing ? "Save" : "Create"} ingredient`
 								: "Close"
 						}
 						onClick={handleSubmit}

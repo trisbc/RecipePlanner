@@ -7,7 +7,7 @@ import {
 	Textarea,
 	Box,
 } from "@mantine/core";
-import { ChangeEvent, FC, FocusEvent, useState } from "react";
+import { ChangeEvent, FC, FocusEvent, useEffect, useState } from "react";
 import classes from "./CreateRecipeModal.module.css";
 import { useIngredientStore, useRecipeStore } from "@/store";
 import { FiPlus, FiTrash2 } from "react-icons/fi";
@@ -16,9 +16,9 @@ import { TimeInput } from "@/components/inputs/TimeInput";
 import { RecipeType, units } from "@/types";
 import { parseTime } from "@/util/parseTime";
 import { useBreakpoints } from "@/hooks/useBreakpoints";
-import { group } from "console";
 import { createKey } from "@/util/createKey";
 import { IngredientModal } from "../IngredientModal/IngredientModal";
+import { useGroupedIngredients } from "./util";
 
 const { createRecipeModal, amountField } = classes;
 
@@ -49,6 +49,7 @@ export const CreateRecipeModal: FC<CreateRecipeModalProps> = ({
 }) => {
 	const { addRecipe, recipeStore } = useRecipeStore();
 	const hasChanges = true;
+	const [isIngredientOpen, setIsIngredientOpen] = useState(false);
 	const [recipeName, setRecipeName] = useState("");
 	const [nameError, setNameError] = useState("");
 	const [description, setDescription] = useState("");
@@ -114,15 +115,20 @@ export const CreateRecipeModal: FC<CreateRecipeModalProps> = ({
 			prepTime: prepTime ? parseTime(prepTime) : undefined,
 		};
 
-		console.log(recipeItem);
 		addRecipe(recipeKey, recipeItem);
 		onAddRecipe(recipeKey);
+		clearForm();
 	};
 
 	return (
 		<Modal
 			opened={isOpen}
-			onClose={() => onClose(false)}
+			onClose={() => {
+				if (!isIngredientOpen) {
+					clearForm();
+					onClose(false);
+				}
+			}}
 			withCloseButton={false}
 			yOffset="10%"
 			size="lg"
@@ -130,6 +136,14 @@ export const CreateRecipeModal: FC<CreateRecipeModalProps> = ({
 			keepMounted={false}
 		>
 			<Stack gap="sm">
+				<IngredientModal
+					isOpen={isIngredientOpen}
+					onClose={setIsIngredientOpen}
+					isEditing={false}
+					onAddIngredient={() => {
+						setIsIngredientOpen(false);
+					}}
+				/>
 				<TextInput
 					label="Recipe name"
 					w="200px"
@@ -157,6 +171,7 @@ export const CreateRecipeModal: FC<CreateRecipeModalProps> = ({
 						setIngredients([...ingredients, blankIngredient]);
 					}}
 					onUpdateIngredients={setIngredientOption}
+					onCreateIngredient={() => setIsIngredientOpen(true)}
 				/>
 				<Stack gap="8px">
 					Time
@@ -210,6 +225,7 @@ interface IngredientStackProps {
 		index: number,
 		value: string | number,
 	) => void;
+	onCreateIngredient: () => void;
 }
 
 const IngredientStack: FC<IngredientStackProps> = ({
@@ -217,12 +233,8 @@ const IngredientStack: FC<IngredientStackProps> = ({
 	onAddIngredient,
 	onDeleteIngredient,
 	onUpdateIngredients,
+	onCreateIngredient,
 }) => {
-	const { recipeStore } = useRecipeStore();
-	const { ingredientStore } = useIngredientStore();
-
-	const [isIngredientOpen, setIsIngredientOpen] = useState(false);
-
 	const handleAmountChange = (
 		event: ChangeEvent<HTMLInputElement>,
 		index: number,
@@ -248,49 +260,11 @@ const IngredientStack: FC<IngredientStackProps> = ({
 	};
 
 	const { isSmallScreen } = useBreakpoints();
-
-	const initialGroupedItems: Record<
-		string,
-		{ label: string; value: string }[]
-	> = {
-		uncategorized: [
-			{
-				label: "＋ Create ingredient",
-				value: "create_new",
-			},
-		],
-	};
-	const groupedItems: Record<string, { label: string; value: string }[]> =
-		Object.entries(ingredientStore).reduce(
-			(accumulator, [key, { category, item }]) => {
-				let group = "uncategorized";
-				if (category) group = category;
-				const currentGroup =
-					group in accumulator ? accumulator[group] : [];
-				accumulator[group] = [
-					...currentGroup,
-					{ label: item, value: key },
-				].sort((a, b) => {
-					if (a.value === "create_new") return 1;
-					else if (b.value === "create_new") return -1;
-					else return a.label.localeCompare(b.label);
-				});
-				return accumulator;
-			},
-			initialGroupedItems,
-		);
+	const ingredientOptions = useGroupedIngredients();
 
 	return (
 		<Stack gap="8px">
 			Ingredients
-			<IngredientModal
-				isOpen={isIngredientOpen}
-				onClose={setIsIngredientOpen}
-				isEditing={false}
-				onAddIngredient={() => {
-					setIsIngredientOpen(false);
-				}}
-			/>
 			{ingredients.map((ingredient, index) => (
 				<>
 					<Group key={`ingredient-row-${index}`}>
@@ -305,18 +279,14 @@ const IngredientStack: FC<IngredientStackProps> = ({
 										p={0}
 										variant="text-only"
 										text="＋ Create ingredient"
-										onClick={() =>
-											setIsIngredientOpen(true)
-										}
+										onClick={() => onCreateIngredient()}
 									/>
 								</>
 							}
 							value={ingredient.ingredientID}
 							onOptionSubmit={(value) => {
-								console.log("value", value);
 								if (value === "create_new") {
-									console.log("openingModal");
-									setIsIngredientOpen(true);
+									onCreateIngredient();
 								} else {
 									onUpdateIngredients(
 										"ingredientID",
@@ -325,11 +295,7 @@ const IngredientStack: FC<IngredientStackProps> = ({
 									);
 								}
 							}}
-							data={Object.entries(groupedItems)
-								.map(([group, items]) => ({ group, items }))
-								.sort(({ group: groupA }, { group: groupB }) =>
-									groupA.localeCompare(groupB),
-								)}
+							data={ingredientOptions}
 						/>
 						<TextInput
 							className={amountField}
