@@ -8,6 +8,7 @@ import { SaveModalProvider } from "./hooks";
 import { colorsType } from "./types";
 import { theme } from "./theme";
 import { useSettingsStore } from "./store/useSettingsStore";
+import { useEffect } from "react";
 
 const ApplicationLayout = () => {
 	return (
@@ -97,6 +98,7 @@ const MantineLayer = () => {
 			),
 		},
 	});
+
 	return (
 		<MantineProvider
 			theme={theme}

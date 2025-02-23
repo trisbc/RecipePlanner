@@ -20,7 +20,7 @@ import { createKey } from "@/util/createKey";
 import { IngredientModal } from "../IngredientModal/IngredientModal";
 import { useGroupedIngredients } from "./util";
 
-const { createRecipeModal, amountField } = classes;
+const { createRecipeModal, amountField, selectField } = classes;
 
 interface CreateRecipeModalProps {
 	isOpen: boolean;
@@ -263,12 +263,13 @@ const IngredientStack: FC<IngredientStackProps> = ({
 	const ingredientOptions = useGroupedIngredients();
 
 	return (
-		<Stack gap="8px">
+		<Stack gap="8px" my={isSmallScreen ? "xl" : undefined}>
 			Ingredients
 			{ingredients.map((ingredient, index) => (
 				<>
 					<Group key={`ingredient-row-${index}`}>
 						<Select
+							className={selectField}
 							label={`Ingredient${ingredients.length > 1 ? ` ${index + 1}` : ""}`}
 							searchable
 							w={isSmallScreen ? "100%" : undefined}
@@ -276,6 +277,7 @@ const IngredientStack: FC<IngredientStackProps> = ({
 								<>
 									No ingredients found that match your search.
 									<ThemeButton
+										c="light-dark(black, white)"
 										p={0}
 										variant="text-only"
 										text="＋ Create ingredient"
@@ -323,6 +325,8 @@ const IngredientStack: FC<IngredientStackProps> = ({
 									items: [
 										"ml",
 										"l",
+										"tsp",
+										"tbsp",
 										"cup",
 										"pint",
 										"quart",

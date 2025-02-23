@@ -14,5 +14,7 @@ export const formatTime = (numMinutes: number) => {
 		.toString()
 		.padStart(2, "0");
 	const formattedMinutes = (numMinutes % 60).toString().padStart(2, "0");
-	return `${formattedHours}:${formattedMinutes}`;
+	return numMinutes > 59
+		? `${formattedHours}:${formattedMinutes}`
+		: `${formattedMinutes} min`;
 };

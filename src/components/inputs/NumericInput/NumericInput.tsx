@@ -1,11 +1,18 @@
 import { TextInput, TextInputProps } from "@mantine/core";
 import { ChangeEventHandler, FC, FocusEventHandler } from "react";
 
-export const NumericInput: FC<TextInputProps> = ({
+interface NumericInputProps extends TextInputProps {
+	minDecimals?: number;
+	maxDecimals?: number;
+}
+
+export const NumericInput: FC<NumericInputProps> = ({
 	onBlur,
 	onChange,
 	maxLength = 5,
 	w = "64px",
+	minDecimals = 0,
+	maxDecimals = 2,
 	...props
 }) => {
 	const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -24,7 +31,11 @@ export const NumericInput: FC<TextInputProps> = ({
 		const formattedOptionAsNumber = parseFloat(cleanedString);
 		const formattedNumber = formattedOptionAsNumber.toLocaleString(
 			"en-US",
-			{ maximumFractionDigits: 2 },
+			{
+				maximumFractionDigits:
+					maxDecimals >= minDecimals ? maxDecimals : minDecimals,
+				minimumFractionDigits: minDecimals,
+			},
 		);
 
 		e.target.value = formattedNumber;

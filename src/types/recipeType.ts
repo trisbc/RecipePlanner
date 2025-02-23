@@ -1,11 +1,18 @@
 export type weightUnits = "mg" | "g" | "kg" | "oz" | "lb";
-export type volumeUnits = "ml" | "l" | "cup" | "pint" | "quart" | "gallon";
+export type volumeUnits =
+	| "ml"
+	| "l"
+	| "cup"
+	| "pint"
+	| "quart"
+	| "gallon"
+	| "tsp"
+	| "tbsp";
 export type units = weightUnits | volumeUnits;
 
-type minUnits = "ml" | "mg";
 export interface IngredientType {
 	item: string;
-	costPerUnit?: Partial<Record<minUnits, number>>;
+	costPerUnit?: Partial<Record<units, number>>;
 	category?: string;
 }
 

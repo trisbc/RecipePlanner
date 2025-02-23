@@ -212,6 +212,7 @@ export const RecipeCardCheckBox: FC<CheckboxCardProps> = ({
 								<Group wrap="nowrap">
 									<FiDollarSign color="green" size={16} />
 									<Box className={checkboxMetricsLabel}>
+										{/* TODO: Replace this with real data */}
 										12.00
 									</Box>
 								</Group>

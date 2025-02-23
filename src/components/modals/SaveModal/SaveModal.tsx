@@ -5,6 +5,7 @@ import { LoadRecipeBook } from "./components/LoadRecipeBook";
 import { SaveRecipeBook } from "./components";
 import { SaveButton } from "@/components/SaveButton";
 import { IconButton } from "@/components/buttons/IconButtons/IconButton";
+import { useEffect } from "react";
 
 export const SaveModal = () => {
 	const {
@@ -13,6 +14,14 @@ export const SaveModal = () => {
 		hasPendingChanges,
 		isPendingDownload,
 	} = useSaveContext();
+
+	useEffect(() => {
+		window.onbeforeunload = () => {
+			if (hasPendingChanges) {
+				return "Are you sure you want to leave?";
+			}
+		};
+	}, [hasPendingChanges]);
 
 	return (
 		<>
