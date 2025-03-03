@@ -1,12 +1,15 @@
-import { BrowserRouter } from 'react-router-dom';
-import Componenet from './Settings';
+import { BrowserRouter } from "react-router-dom";
+import Componenet from "./Settings";
+import { SaveModalProvider } from "@/hooks";
 
 export default {
-  title: 'Nav/Settings',
+	title: "Nav/Settings",
 };
 
 export const Settings = () => (
-  <BrowserRouter>
-    <Componenet />
-  </BrowserRouter>
+	<BrowserRouter>
+		<SaveModalProvider>
+			<Componenet />
+		</SaveModalProvider>
+	</BrowserRouter>
 );

@@ -5,11 +5,10 @@ import {
 	TextInput,
 	Select,
 	Textarea,
-	Box,
 } from "@mantine/core";
-import { ChangeEvent, FC, FocusEvent, useEffect, useState } from "react";
+import { ChangeEvent, FC, FocusEvent, useState } from "react";
 import classes from "./CreateRecipeModal.module.css";
-import { useIngredientStore, useRecipeStore } from "@/store";
+import { useRecipeStore } from "@/store";
 import { FiPlus, FiTrash2 } from "react-icons/fi";
 import { ThemeButton } from "@/components/buttons/ThemeButton";
 import { TimeInput } from "@/components/inputs/TimeInput";

@@ -8,7 +8,7 @@ import { SaveModalProvider } from "./hooks";
 import { colorsType } from "./types";
 import { theme } from "./theme";
 import { useSettingsStore } from "./store/useSettingsStore";
-import { useEffect } from "react";
+import { FC, ReactNode, useEffect } from "react";
 
 const ApplicationLayout = () => {
 	return (
@@ -67,12 +67,14 @@ const createColorSet = (
 export default function App() {
 	return (
 		<SaveModalProvider>
-			<MantineLayer />
+			<MantineLayer>
+				<Router />
+			</MantineLayer>
 		</SaveModalProvider>
 	);
 }
 
-const MantineLayer = () => {
+export const MantineLayer: FC<{ children: ReactNode }> = ({ children }) => {
 	const {
 		settingsStore: { appearance },
 	} = useSettingsStore();
@@ -105,7 +107,7 @@ const MantineLayer = () => {
 			cssVariablesResolver={resolver}
 			defaultColorScheme="dark"
 		>
-			<Router />
+			{children}
 		</MantineProvider>
 	);
 };
